@@ -5,7 +5,7 @@ class pgConnection {
     private $dsn;
 
     protected function __construct() {
-        $this->dsn = new PDO("pgsql:dbname=GolfSystem;host=localhost", "zaimazhar97", "Zaimzaim1@");
+        $this->dsn = new PDO("pgsql:dbname=GolfSystem;host=localhost", "xxxx", "xxxx");
 
         return $this->dsn;
     }
