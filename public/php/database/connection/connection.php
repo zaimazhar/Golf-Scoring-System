@@ -12,15 +12,12 @@ class pgConnection {
     }
 
     protected function executeQuery(string $query = null, $value_to_store = null) {
-        if(!$query) return;
+        $this->currStmt = $this->sqlConn->prepare($query);
 
-        $this->currStmt = $this->dsn->prepare($query);
-
-        if(!empty($value_to_store)) {
+        if(!empty($data))
+            $this->currStmt->execute($data);
+        else
             $this->currStmt->execute();
-        } else {
-            $this->currStmt->execute($value_to_store);
-        }
 
         return $this->currStmt;
     }

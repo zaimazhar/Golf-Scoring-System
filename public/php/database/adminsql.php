@@ -12,19 +12,8 @@ class adminsql extends pgConnection {
         $this->sqlConn = parent::__construct();
     }
 
-    private function theQuery(string $query, array $data = null) {
-        $this->currStmt = $this->sqlConn->prepare($query);
-
-        if(!empty($data))
-            $this->currStmt->execute($data);
-        else
-            $this->currStmt->execute();
-
-        return $this->currStmt;
-    }
-
     public function getUser() {
-        return $this->theQuery("SELECT * FROM users")->fetchAll(PDO::FETCH_ASSOC);
+        return $this->executeQuery("SELECT * FROM users")->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getCount() {
@@ -32,7 +21,7 @@ class adminsql extends pgConnection {
     }
 
     public function insertUser($name, $email, $gender) {
-        $this->insertUser = $this->theQuery("INSERT INTO users (name, email, gender) VALUES (?, ?, ?)", array($name, $email, $gender));
+        $this->insertUser = $this->executeQuery("INSERT INTO users (name, email, gender) VALUES (?, ?, ?)", array($name, $email, $gender));
 
         if($this->insertUser) {
             return true;
