@@ -3,11 +3,10 @@
 include_once 'connection/connection.php';
 
 class adminsql extends pgConnection {
-    private $sqlConn;
+    protected $sqlConn;
     private $getUser;
     private $insertUser;
-    private $currStmt;
-
+    
     public function __construct() {
         $this->sqlConn = parent::__construct();
     }

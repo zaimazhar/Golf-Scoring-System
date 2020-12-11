@@ -6,12 +6,12 @@ class pgConnection {
     private $currStmt;
 
     protected function __construct() {
-        $this->dsn = new PDO("pgsql:dbname=GolfSystem;host=localhost", "xxxx", "xxxx");
+        $this->dsn = new PDO("pgsql:dbname=GolfSystem;host=localhost", "zaimazhar97", "Zaimzaim1@");
 
         return $this->dsn;
     }
 
-    protected function executeQuery(string $query = null, $value_to_store = null) {
+    protected function executeQuery(string $query = null, $data = null) {
         $this->currStmt = $this->sqlConn->prepare($query);
 
         if(!empty($data))
