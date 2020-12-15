@@ -1,4 +1,4 @@
-# Golf Scoring System
+# Golf Scoring System ⛳
 
 A platform to enhance quality and productivity of scoring in golf tournaments.
 
