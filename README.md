@@ -14,5 +14,5 @@ Having an official and crucial tournaments require a massive workloads to handle
 
 ## References
 
-- PHP [https://www.php.net/]
-- StackOverflow [https://stackoverflow.com/]
+- [PHP] (https://www.php.net/)
+- [StackOverflow] (https://stackoverflow.com/)
