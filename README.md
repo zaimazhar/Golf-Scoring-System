@@ -8,6 +8,7 @@ Having an official and crucial tournaments require a massive workloads to handle
 
 ## Stack
 
+- Apache [Web Server]
 - HTML5 [Frontend]
 - PHP (v7.4.3) [Backend]
 - PostgreSQL [Database]
