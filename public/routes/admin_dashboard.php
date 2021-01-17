@@ -1,18 +1,22 @@
 <?php
 
-// session_start();
+session_start();
 
 // if(!$_SESSION['id']) {
 //     header("Location: ". $_SERVER['HTTP_REFERER'] ."");
 // }
 
-include_once 'php/database/adminsql.php';
+include_once '../php/logic/check_auth.php';
 
-$data = new adminsql;
+(new Auth())->check();
 
-foreach($data->getUser() as $data_sql) {
-    echo "Name is <b>" . $data_sql['name'] . "</b> - Email is <b>" . $data_sql['email'] . "</b> - Gender is <b>" . $data_sql['gender'] . "</b><br>";
-}
+// include_once 'php/database/adminsql.php';
+
+// $data = new adminsql;
+
+// foreach($data->getUser() as $data_sql) {
+//     echo "Name is <b>" . $data_sql['name'] . "</b> - Email is <b>" . $data_sql['email'] . "</b> - Gender is <b>" . $data_sql['gender'] . "</b><br>";
+// }
 
 ?>
 

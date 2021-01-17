@@ -2,13 +2,13 @@
 
 class csrf {
     private $token;
-    
-    public static function generateToken() {
+
+    public function __construct() {
         $_SESSION['token'] = bin2hex(random_bytes(32));
         $this->token = $_SESSION['token'];
     }
 
-    public static function checkToken($token) {
+    public function checkToken($token) {
         if($this->token == $token) {
             echo "Authenticated";
         } else {

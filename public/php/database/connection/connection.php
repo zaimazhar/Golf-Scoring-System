@@ -11,7 +11,7 @@ class pgConnection {
         return $this->dsn;
     }
 
-    protected function executeQuery(string $query = null, $data = null) {
+    protected function executeQuery(string $query = null, array $data = null) {
         $this->currStmt = $this->sqlConn->prepare($query);
 
         if(!empty($data))
