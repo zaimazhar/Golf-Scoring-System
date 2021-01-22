@@ -13,6 +13,9 @@ Having an official and crucial tournaments require a massive workloads to handle
 - Frontend of the application is reactive and responsive to the backend of the application. (view-model principle)
 - Attractive and interactive user interface and user experience. (Dynamic data resolution)
 
+## Issues
+- _None_
+
 ## Stack
 
 - Apache [Web Server]
