@@ -1,3 +1,13 @@
+<?php
+
+include_once "../ServiceProvider.php";
+
+$services = (new ServiceProvider());
+$services->register['auth']->start();
+$services->old('error');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

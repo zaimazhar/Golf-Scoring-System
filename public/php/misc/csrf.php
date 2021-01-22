@@ -1,6 +1,6 @@
 <?php
 
-class csrf {
+class Csrf {
     private $token;
 
     public function __construct() {

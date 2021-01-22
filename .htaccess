@@ -6,7 +6,7 @@ RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.*)$ $1.php [NC,L]
 RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
 RewriteRule ^ %1 [L,NE,R=302]
-RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
+RewriteRule ^((?!public/).*)$ public/routes/$1 [L,NC]
 
 # BEGIN GZIP
 <ifmodule mod_deflate.c>
