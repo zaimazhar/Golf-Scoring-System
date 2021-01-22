@@ -12,6 +12,7 @@ Having an official and crucial tournaments require a massive workloads to handle
 - Efficient data persistent throughout the application ensuring the data is safe in the data vault.
 - Frontend of the application is reactive and responsive to the backend of the application. (view-model principle)
 - Attractive and interactive user interface and user experience. (Dynamic data resolution)
+- Sessions to pass variables content
 
 ## Issues
 - _None_
