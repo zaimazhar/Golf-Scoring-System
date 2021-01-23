@@ -2,21 +2,25 @@
 
 include "php/logic/Auth.php";
 include "php/misc/Csrf.php";
+include "php/logic/Request.php";
 include "php/logic/Sessions.php";
 
 class ServiceProvider {
     public $register;
 
-    public function __construct() {
-        $this->register['auth'] = new Auth;
-        $this->register['csrf'] = new Csrf;
-        $this->register['session'] = new Sessions;
+    public function auth() {
+        return new Auth;
     }
 
-    public function old($name) {
-        if(isset($_SESSION[$name])) {
-            echo $_SESSION[$name];
-            unset($_SESSION[$name]);
-        }
+    public function csrf() {
+        return new Csrf;
+    }
+
+    public function request() {
+        return new Request;
+    }
+
+    public function session() {
+        return new Sessions;
     }
 }

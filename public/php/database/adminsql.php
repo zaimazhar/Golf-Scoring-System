@@ -1,7 +1,5 @@
 <?php
 
-include_once 'connection/connection.php';
-
 class adminsql extends pgConnection {
     protected $sqlConn;
     private $getUser;

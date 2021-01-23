@@ -2,9 +2,9 @@
 
 include_once "../ServiceProvider.php";
 
-$services = (new ServiceProvider());
-$services->register['auth']->start();
-$services->old('error');
+$services = new ServiceProvider;
+$services->auth()->start();
+$services->session()->old('error');
 
 ?>
 

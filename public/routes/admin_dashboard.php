@@ -1,14 +1,10 @@
 <?php
 
-session_start();
+include_once "../ServiceProvider.php";
 
-// if(!$_SESSION['id']) {
-//     header("Location: ". $_SERVER['HTTP_REFERER'] ."");
-// }
-
-include_once '../php/logic/check_auth.php';
-
-(new Auth())->check();
+$services = new ServiceProvider;
+$services->auth()->start();
+$services->auth()->check();
 
 // include_once 'php/database/adminsql.php';
 

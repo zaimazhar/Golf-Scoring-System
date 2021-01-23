@@ -23,8 +23,4 @@ class Auth {
     static public function user() {
         isset($_SESSION['id']);
     }
-
-    public function csrf() {
-
-    }
 }
