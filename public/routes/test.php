@@ -2,17 +2,15 @@
 
 include_once "../ServiceProvider.php";
 
-$services = new ServiceProvider;
-$services->auth()->start();
-$services->auth()->check();
+Auth::start();
+Auth::check();
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include_once "components/head.php" ?>
     <title>Test</title>
 </head>
 <body>

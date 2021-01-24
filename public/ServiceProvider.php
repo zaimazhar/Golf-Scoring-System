@@ -1,26 +1,26 @@
 <?php
 
-include "php/logic/Auth.php";
-include "php/misc/Csrf.php";
-include "php/logic/Request.php";
-include "php/logic/Sessions.php";
+spl_autoload_register(function($classname) {
+    require_once "php/logic/$classname.php";
+});
 
-class ServiceProvider {
-    public $register;
 
-    public function auth() {
-        return new Auth;
-    }
+// class ServiceProvider {
+//     public $register;
 
-    public function csrf() {
-        return new Csrf;
-    }
+//     public function auth() {
+//         return new Auth;
+//     }
 
-    public function request() {
-        return new Request;
-    }
+//     public function csrf() {
+//         return new Csrf;
+//     }
 
-    public function session() {
-        return new Sessions;
-    }
-}
+//     public function request() {
+//         return new Request;
+//     }
+
+//     public function session() {
+//         return new Sessions;
+//     }
+// }

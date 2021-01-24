@@ -1,11 +1,11 @@
 <?php
 
 class Auth {
-    public function start() {
+    static public function start() {
         session_start();
     }
 
-    public function check() {
+    static public function check() {
         if(!$_SESSION['id']) {
             $_SESSION['error'] = "You are not logged in!";
             header("Location: /");

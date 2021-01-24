@@ -15,4 +15,8 @@ class Csrf {
             echo "CSRF!!!!";
         }
     }
+
+    public function test() {
+        echo "Kentut";
+    }
 }
