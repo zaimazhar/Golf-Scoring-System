@@ -1,4 +1,4 @@
-# Golf Scoring System ⛳
+# Smart Golf Scoring Website System ⛳
 
 A platform to enhance quality and productivity of scoring in golf tournaments.
 
@@ -16,6 +16,12 @@ Having an official and crucial tournaments require a massive workloads to handle
 
 ## Issues
 - _None_
+
+## TO-DOs
+- Build all packages
+  - CSRF
+  - APIs (?)
+  - Model Class
 
 ## Stack
 
