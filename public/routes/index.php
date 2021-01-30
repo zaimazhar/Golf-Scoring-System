@@ -2,7 +2,6 @@
 
 include_once "../ServiceProvider.php";
 
-
 Auth::start();
 Sessions::old('error');
 

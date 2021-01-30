@@ -2,9 +2,7 @@
 
 include_once "../ServiceProvider.php";
 
-$services = new ServiceProvider;
-$services->auth()->start();
-$services->auth()->check();
+Auth::start();
 
 // include_once 'php/database/adminsql.php';
 
