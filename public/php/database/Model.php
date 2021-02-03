@@ -1,37 +1,52 @@
 <?php
 
-class Model extends pgConnection {
-    protected $sqlConn;
-    private $currStmt;
+namespace php\database;
 
-    public function __construct() {
-        $this->sqlConn = parent::__construct();
+use php\database\connection\pgConnection;
+
+class Model extends pgConnection {
+    private $currStmt;
+    private $arr_data = [];
+    private static $check = [];
+
+    protected function create($db, Array $datas) {
+        $columns = "";
+        $values = "";
+
+        foreach($datas as $key => $data) {
+            $columns .= "$key,";
+            $values .= "?,";
+            array_push($this->arr_data, $data);
+        }
+
+        $columns = substr($columns, 0, -1);
+        $values = substr($values, 0, -1);
+        $str = "INSERT INTO $db ($columns) VALUES ($values)";
+
+        $this->executeQuery($str, $this->arr_data);
     }
 
-    // protected function where(array $column) {
-    //     foreach()
-    // }
+    public static function where(array $checks) {        
+        self::$check = $checks;
+        return new static;
+    }
 
-    // protected function buildQuery() {
+    protected function get() {
+        foreach(self::$check as $data) {
+            echo $data[2];
+        }
+    }
 
-    // }
-
-    // protected function get() {
-    //     return true;
-    // }
-
-    protected function save() {
+    protected function buildQuery() {
 
     }
 
     private function executeQuery(string $query = null, array $data = null) {
-        $this->currStmt = $this->sqlConn->prepare($query);
+        $this->currStmt = $this->dsn->prepare($query);
 
         if(!empty($data))
             $this->currStmt->execute($data);
         else
             $this->currStmt->execute();
-
-        return $this->currStmt;
     }
 }

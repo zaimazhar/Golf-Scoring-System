@@ -1,6 +1,6 @@
 <?php
 
-include_once "../ServiceProvider.php";
+use php\logic\Auth;
 
 Auth::start();
 

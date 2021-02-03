@@ -1,5 +1,7 @@
 <?php
 
+namespace php\logic;
+
 class Sessions {
     static public function old($name) {
         if(isset($_SESSION[$name])) {

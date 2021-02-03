@@ -1,9 +1,13 @@
 <?php
 
-include_once "../ServiceProvider.php";
+include "../ServiceProvider.php";
 
-Auth::start();
-Auth::check();
+use php\logic\Auth;
+use php\logic\Seeder;
+
+// Auth::start();
+// Auth::check();
+Seeder::seed()->staticTry();
 
 ?>
 

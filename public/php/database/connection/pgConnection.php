@@ -1,12 +1,14 @@
 <?php
 
+namespace php\database\connection;
+
+use PDO;
+
 class pgConnection {
 
-    private $dsn;
+    protected $dsn;
 
     protected function __construct() {
         $this->dsn = new PDO("pgsql:dbname=GolfSystem;host=localhost", "zaimazhar97", "Zaimzaim1@");
-
-        return $this->dsn;
     }
 }
