@@ -1,5 +1,7 @@
 <?php
 
+namespace php\misc;
+
 class Csrf {
     private $token;
 
@@ -8,7 +10,7 @@ class Csrf {
         $this->token = $_SESSION['token'];
     }
 
-    public function checkToken($token) {
+    protected function checkToken($token) {
         if($this->token == $token) {
             echo "Authenticated";
         } else {
@@ -16,7 +18,7 @@ class Csrf {
         }
     }
 
-    public function test() {
+    static public function test() {
         echo "Kentut";
     }
 }

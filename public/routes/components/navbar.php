@@ -1,3 +1,7 @@
+<?php
+    use php\logic\Auth;
+?>
+
 <nav>
     <ul>
         <li><a href="/">Home</a></li>
