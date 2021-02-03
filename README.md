@@ -18,10 +18,27 @@ Having an official and crucial tournaments require a massive workloads to handle
 - _None_
 
 ## TO-DOs
-- Build all packages
-  - CSRF
-  - APIs (?)
-  - Model Class
+- Frontend
+  - Login Page (10%)
+  - Organizer Dashboard
+  - Admin Dashboard
+  - Player Dashboard
+
+- Backend
+  - Configure server environment
+    - Build Tables
+      - Users
+      - Competition
+  
+  - Build all packages
+    - Authentication (20%)
+    - Authorization
+    - CSRF (10%)
+    - APIs (?)
+    - Model Class (10%)
+    - Query Builder (5%)
+    - ~~Seeder~~
+    - Score Computation
 
 ## Stack
 
