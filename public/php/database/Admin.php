@@ -1,5 +1,7 @@
 <?php
 
+namespace php\database;
+
 class Admin extends Model {
     
     private $getUser;
