@@ -1,5 +1,7 @@
 <?php
 
+namespace php\misc;
+
 class Csrf {
     private $token;
 
@@ -13,5 +15,9 @@ class Csrf {
         } else {
             echo "CSRF!!!!";
         }
+    }
+
+    static public function test() {
+        echo "TESTING FROM CSRF";
     }
 }

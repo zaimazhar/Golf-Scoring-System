@@ -1,8 +1,8 @@
 <?php
 
-include_once '../database/adminsql.php';
+use php\database\Admin;
 
-$adminQuery = new adminsql;
+$adminQuery = new Admin;
 
 if(!isset($_SERVER['HTTPS'])) {
     print_r(parse_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"));

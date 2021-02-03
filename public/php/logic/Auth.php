@@ -1,5 +1,7 @@
 <?php
 
+namespace php\logic;
+
 class Auth {
     static public function start() {
         session_start();
