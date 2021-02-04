@@ -33,7 +33,7 @@ Having an official and crucial tournaments require a massive workloads to handle
   - Build all packages
     - Authentication (20%)
     - Authorization
-    - CSRF (10%)
+    - ~~CSRF (10%)~~ (__Abandoned__)
     - APIs (?)
     - Model Class (10%)
     - Query Builder (5%)
