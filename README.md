@@ -1,6 +1,6 @@
 # Smart Golf Scoring Website System ⛳
 
-A platform to enhance quality and productivity of scoring in golf tournaments.
+A platform to enhance quality and productivity of scoring in golf tournaments.rr
 
 ## Introduction
 
@@ -31,7 +31,7 @@ Having an official and crucial tournaments require a massive workloads to handle
       - Competition
   
   - Build all packages
-    - Authentication (20%)
+    - Authentication (15%)
     - Authorization
     - ~~CSRF (10%)~~ (__Abandoned__)
     - APIs (?)
