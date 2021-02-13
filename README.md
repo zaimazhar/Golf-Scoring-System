@@ -15,7 +15,7 @@ Having an official and crucial tournaments require a massive workloads to handle
 - Sessions to pass variables content
 
 ## Issues
-- _None_
+- Score Relationships (How to Store Score Properly)
 
 ## TO-DOs
 - Frontend
