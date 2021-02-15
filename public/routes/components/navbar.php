@@ -1,5 +1,11 @@
 <?php
+<<<<<<< HEAD
     use php\logic\Auth;
+=======
+
+use php\logic\Auth;
+
+>>>>>>> 27629233997d10766ae89b63ecff19f07a0d17a4
 ?>
 
 <nav>

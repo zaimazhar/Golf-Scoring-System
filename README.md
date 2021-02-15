@@ -1,6 +1,6 @@
 # Smart Golf Scoring Website System ⛳
 
-A platform to enhance quality and productivity of scoring in golf tournaments.
+A platform to enhance quality and productivity of scoring in golf tournaments
 
 ## Introduction
 
@@ -12,16 +12,33 @@ Having an official and crucial tournaments require a massive workloads to handle
 - Efficient data persistent throughout the application ensuring the data is safe in the data vault.
 - Frontend of the application is reactive and responsive to the backend of the application. (view-model principle)
 - Attractive and interactive user interface and user experience. (Dynamic data resolution)
-- Sessions to pass variables content
+- Sessions to pass variables content.
 
 ## Issues
-- _None_
+- Score Relationships (How to Store Score Properly)
 
 ## TO-DOs
-- Build all packages
-  - CSRF
-  - APIs (?)
-  - Model Class
+- Frontend
+  - Login Page (10%)
+  - Organizer Dashboard
+  - Admin Dashboard
+  - Player Dashboard
+
+- Backend
+  - Configure server environment
+    - Build Tables
+      - Users
+      - Competition
+  
+  - Build all packages
+    - Authentication (15%)
+    - Authorization
+    - ~~CSRF (10%)~~ (__Abandoned__)
+    - APIs (?)
+    - Model Class (10%)
+    - Query Builder (5%)
+    - ~~Seeder~~
+    - Score Computation
 
 ## Stack
 

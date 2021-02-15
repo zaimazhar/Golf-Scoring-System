@@ -1,12 +1,8 @@
 <?php
 
-include_once "../ServiceProvider.php";
+use php\logic\Auth;
 
 Auth::start();
-
-// include_once 'php/database/adminsql.php';
-
-// $data = new adminsql;
 
 // foreach($data->getUser() as $data_sql) {
 //     echo "Name is <b>" . $data_sql['name'] . "</b> - Email is <b>" . $data_sql['email'] . "</b> - Gender is <b>" . $data_sql['gender'] . "</b><br>";

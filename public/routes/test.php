@@ -1,6 +1,6 @@
 <?php
 
-include_once "../ServiceProvider.php";
+include "../ServiceProvider.php";
 
 use php\logic\Auth;
 use php\logic\Seeder;
