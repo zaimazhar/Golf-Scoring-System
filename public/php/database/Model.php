@@ -3,6 +3,7 @@
 namespace php\database;
 
 use php\database\connection\pgConnection;
+use php\misc\Facade;
 
 class Model extends pgConnection {
     private $currStmt;
@@ -16,7 +17,7 @@ class Model extends pgConnection {
         foreach($datas as $key => $data) {
             $columns .= "$key,";
             $values .= "?,";
-            array_push($this->arr_data, $data);
+            array_push($this->arr_data, Facade::sanitizeData($data));
         }
 
         $columns = substr($columns, 0, -1);
@@ -42,11 +43,19 @@ class Model extends pgConnection {
     }
 
     private function executeQuery(string $query = null, array $data = null) {
+        $this->sqlInjectionPreventor($data);
         $this->currStmt = $this->dsn->prepare($query);
 
         if(!empty($data))
             $this->currStmt->execute($data);
         else
             $this->currStmt->execute();
+    }
+
+    private function sqlInjectionPreventor(array $queryCheck) {
+        if(Facade::checkThisInString(";", implode("", $queryCheck)) !== false) {
+            echo "Not here, suckers";
+            exit;
+        }
     }
 }

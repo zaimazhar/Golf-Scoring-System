@@ -4,11 +4,10 @@ include_once "../ServiceProvider.php";
 
 use php\logic\Auth;
 use php\logic\Seeder;
-use php\misc\Csrf;
 
 Auth::start();
-Auth::check();
-(new Seeder)->seed()->staticTry();
+// Auth::check();
+(new Seeder)->SeedAdmin();
 
 ?>
 
