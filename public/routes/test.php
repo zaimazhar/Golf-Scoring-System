@@ -5,9 +5,11 @@ include "../ServiceProvider.php";
 use php\logic\Auth;
 use php\logic\Seeder;
 
-Auth::start();
-// Auth::check();
-(new Seeder)->SeedAdmin();
+$auth = new Auth;
+
+$auth->start();
+$auth->check();
+// (new Seeder)->SeedAdmin();
 
 ?>
 

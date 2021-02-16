@@ -6,19 +6,22 @@ use php\database\Model;
 
 class Seeder extends Model {
     protected $sqlConn;
+    protected $model;
 
     public function __construct() {
-        $this->sqlConn = parent::__construct();
+        parent::__construct();
     }
 
     public function SeedAdmin() {
         $this->create("new_user", array(
-            "name" => "Arif;",
-            "age" => 25
+            "user_email" => "zaim.azhar97@gmail.com",
+            "user_age" => 24,
+            "user_password" => password_hash("Zaimzaim1@", PASSWORD_BCRYPT),
+            "user_permission" => "superadmin"
         ));
     }
 
     public function staticTry() {
-        $this::where([['id', '=', 2], ['name', '=', 'devzaim']])->get();
+        $this->where([['id', '=', 2], ['name', '=', 'devzaim']])->get();
     }
 }

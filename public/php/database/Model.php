@@ -3,13 +3,20 @@
 namespace php\database;
 
 use php\database\connection\pgConnection;
-use php\misc\Facade;
+use php\misc\Helper;
+use PDO;
 
 class Model extends pgConnection {
     private $currStmt;
     private $arr_data = [];
-    private static $check = [];
+    private $check = [];
 
+    // Initialize the database connection
+    protected function __construct() {
+        parent::__construct();
+    }
+
+    // Create new data
     protected function create($db, Array $datas) {
         $columns = "";
         $values = "";
@@ -17,7 +24,7 @@ class Model extends pgConnection {
         foreach($datas as $key => $data) {
             $columns .= "$key,";
             $values .= "?,";
-            array_push($this->arr_data, Facade::sanitizeData($data));
+            array_push($this->arr_data, Helper::sanitizeData($data));
         }
 
         $columns = substr($columns, 0, -1);
@@ -27,33 +34,40 @@ class Model extends pgConnection {
         $this->executeQuery($str, $this->arr_data);
     }
 
-    public static function where(array $checks) {        
-        self::$check = $checks;
-        return new static;
+    public function where(array $checks) {        
+        echo "Yes I am where";
     }
 
     protected function get() {
-        foreach(self::$check as $data) {
-            echo $data[2];
-        }
+        return $this->currStmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Find the data based on the given id
+    protected function find($table, $id) {
+        return $this->executeQuery("SELECT * FROM $table WHERE id=?", [Helper::sanitizeData($id)]);
     }
 
     protected function buildQuery() {
 
     }
 
+    // Execute the given query along with the data
     private function executeQuery(string $query = null, array $data = null) {
         $this->sqlInjectionPreventor($data);
         $this->currStmt = $this->dsn->prepare($query);
 
-        if(!empty($data))
+        if(!empty($data)) {
             $this->currStmt->execute($data);
-        else
+        } else {
             $this->currStmt->execute();
+        }
+
+        return $this;
     }
 
+    // Search for any malicious tag and block the request if found
     private function sqlInjectionPreventor(array $queryCheck) {
-        if(Facade::checkThisInString(";", implode("", $queryCheck)) !== false) {
+        if(Helper::checkThisInString(";", implode("", $queryCheck)) !== false) {
             echo "Not here, suckers";
             exit;
         }

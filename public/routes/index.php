@@ -2,16 +2,10 @@
 
 include "../ServiceProvider.php";
 
-use php\logic\Auth;
 use php\logic\Sessions;
 
-use php\logic\Auth;
-use php\logic\Sessions;
-use php\misc\Csrf;
-
-Auth::start();
-Sessions::old('error');
-Csrf::test();
+Sessions::old("error");
+Sessions::old("get");
 
 ?>
 
