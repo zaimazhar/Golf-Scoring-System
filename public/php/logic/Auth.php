@@ -6,6 +6,8 @@ use php\database\Model;
 use php\misc\Helper;
 
 class Auth extends Model {
+    private $user;
+
     public function __construct() {
         parent::__construct();       
     }
@@ -45,7 +47,15 @@ class Auth extends Model {
     }
 
     // Attempting to login with the current data
-    public function Attempt(array $data = null) {
-        print_r($this->find("new_user", 1)->get());
+    public function Attempt(array $data) {
+        $this->user = $this->select("new_user", null, array("user_email" => $data[0]))->get();
+        if(password_verify($data[1], $this->user['user_password'])) {
+            $this->start();
+            $_SESSION['id'] = $this->user['id'];
+            $_SESSION['permission'] = $this->user['user_permission'];
+            Helper::redirect("organizer_dashboard");
+        } else {
+            echo "Nope";
+        }
     }
 }

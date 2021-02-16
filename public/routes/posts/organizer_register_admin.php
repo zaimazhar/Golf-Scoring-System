@@ -10,7 +10,7 @@ $auth = new Auth;
 
 if($_SERVER['REQUEST_METHOD'] === "GET") {
     Sessions::setSession("get", "Restricted location!");
-    $auth->Attempt();
-    // Helper::home();
+    Helper::home();
 } else {
+    $auth->Attempt([$_POST['user_email'], $_POST['user_password']]);
 }

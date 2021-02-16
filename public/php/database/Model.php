@@ -8,8 +8,8 @@ use PDO;
 
 class Model extends pgConnection {
     private $currStmt;
+    private $currQuery;
     private $arr_data = [];
-    private $check = [];
 
     // Initialize the database connection
     protected function __construct() {
@@ -17,7 +17,7 @@ class Model extends pgConnection {
     }
 
     // Create new data
-    protected function create($db, Array $datas) {
+    protected function create(string $db, array $datas) {
         $columns = "";
         $values = "";
 
@@ -29,31 +29,63 @@ class Model extends pgConnection {
 
         $columns = substr($columns, 0, -1);
         $values = substr($values, 0, -1);
-        $str = "INSERT INTO $db ($columns) VALUES ($values)";
+        $this->currQuery = "INSERT INTO $db ($columns) VALUES ($values)";
 
-        $this->executeQuery($str, $this->arr_data);
+        $this->executeQuery($this->currQuery, $this->arr_data);
     }
 
+    // WHERE clause
     public function where(array $checks) {        
         echo "Yes I am where";
     }
 
+    // Get all data after execution;
     protected function get() {
         return $this->currStmt->fetch(PDO::FETCH_ASSOC);
     }
 
     // Find the data based on the given id
-    protected function find($table, $id) {
+    protected function find(string $table, int $id) {
         return $this->executeQuery("SELECT * FROM $table WHERE id=?", [Helper::sanitizeData($id)]);
     }
 
-    protected function buildQuery() {
+    // Fetch all data of the current table
+    protected function all(string $table) {
+        return $this->executeQuery("SELECT * FROM $table", null);
+    }
 
+    // SELECT data based on table, with specific columns and id (if applicable)
+    protected function select(string $table, array $cols = null, array $wheres) {
+        $choose = "";
+
+        foreach($wheres as $key => $data) {
+            $$key = $key;
+            $this->currQuery .= "$key=? AND ";
+            array_push($this->arr_data, $data);
+        }
+
+        $this->currQuery = substr($this->currQuery, 0, -5);
+
+        if($cols === null) {
+            $choose = "*";
+        } else {
+            foreach($cols as $col) {
+                $choose .= "$col,";
+            }
+            $choose = substr($choose, 0, -1);
+        }
+
+        $this->currQuery = "SELECT $choose FROM $table WHERE " . $this->currQuery;
+
+        return $this->executeQuery($this->currQuery, $this->arr_data);
     }
 
     // Execute the given query along with the data
     private function executeQuery(string $query = null, array $data = null) {
-        $this->sqlInjectionPreventor($data);
+        
+        if($data !== null)
+            $this->sqlInjectionPreventor($data);
+        
         $this->currStmt = $this->dsn->prepare($query);
 
         if(!empty($data)) {
