@@ -14,6 +14,7 @@ class Auth extends Model {
      */
     public function __construct() {
         parent::__construct();
+        $this->start();
     }
 
     /**
@@ -39,7 +40,12 @@ class Auth extends Model {
      * Check if the user is authenticated with the correct privilege
      */
     public function checkPrivilege($privilege) {
-        if($_SESSION['permission'] === $privilege) {
+        $this->update("new_user", [
+            "name" => "devzaim",
+            "email" => "zaim.azhar97@gmail.com",
+            "id" => 1,
+        ]);
+        if($_SESSION['permission'] !== $privilege) {
             $_SESSION['error'] = "You are not allowed to access the page.";
             Helper::home();
         } else {
@@ -52,9 +58,21 @@ class Auth extends Model {
      */
     public function LoginHome() {
         if($this->user()) {
-            $route = Helper::route("compute.compute");
-            $logout = Helper::route("posts.user_logout");
-            echo "<a href='$route'>Dashboard</a><a><form action='$logout' method='post'><button name='logout' type='submit'>Logout</button></form></a>";
+            if($_SESSION['permission'] === "superadmin") {
+                $dashboard = "organizer";
+                $href = Helper::route("organizer_dashboard");
+            } else {
+                $dashboard = "administrator";
+                $href = Helper::route("administrator_dashboard");
+            }
+
+            $href = array(
+                "compute" => Helper::route("compute.compute"),
+                $dashboard => $href,
+                "logout" => Helper::route("posts.user_logout"),
+            );
+            
+            echo Helper::generateLi($href);
         } else {
             echo "<a href='/login'>Login</a>";
         }
@@ -101,16 +119,14 @@ class Auth extends Model {
 
     /**
      * Attempt login
-     * 
-     * param $data array
      */
     public function Attempt(array $data) {
         $this->user = $this->select("new_user", null, array("user_email" => $data[0]))->get();
         if(password_verify($data[1], $this->user['user_password'])) {
-            $this->start();
             $_SESSION['id'] = $this->user['id'];
+            $_SESSION['name'] = $this->user['user_name'];
             $_SESSION['permission'] = $this->user['user_permission'];
-            Helper::redirect("organizer_dashboard");
+            Helper::home();
         } else {
             echo "Nope";
         }

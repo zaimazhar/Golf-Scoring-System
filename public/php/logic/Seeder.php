@@ -15,7 +15,7 @@ class Seeder extends Model {
     public function SeedAdmin() {
         $this->create("new_user", array(
             "user_email" => "zaim.azhar97@gmail.com",
-            "user_age" => 24,
+            "user_name" => "devzaim",
             "user_password" => password_hash("Zaimzaim1@", PASSWORD_BCRYPT),
             "user_permission" => "superadmin"
         ));

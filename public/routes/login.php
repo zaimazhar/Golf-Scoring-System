@@ -10,7 +10,7 @@ $auth = new Auth;
 
 Sessions::old("get");
 
-$post = Helper::route("post.organizer_register_admin");
+$post = Helper::route("posts.user_login");
 
 ?>
 
@@ -21,7 +21,7 @@ $post = Helper::route("post.organizer_register_admin");
 </head>
 <body>
     <?php include_once "./components/navbar.php" ?>
-    <form action="./posts/organizer_register_admin.php" method="post">
+    <form action="<?= $post ?>" method="post">
         <label for="email">Email</label><br>
         <input type="text" name="user_email" id="email"><br>
         <label for="">Password</label><br>

@@ -23,8 +23,8 @@ class Sessions {
      * param $name string
      */
     static public function old($name) {
-        // if(self::check(PHP_SESSION_NONE))
-        //     self::start();
+        if(self::check(PHP_SESSION_NONE))
+            self::start();
         
         if(isset($_SESSION[$name])) {
             echo $_SESSION[$name];
@@ -40,7 +40,7 @@ class Sessions {
      * param $data any
      */
     static public function setSession(string $name, $data) {
-        self::start();
+        // self::start();
         $_SESSION[$name] = $data;
         self::close();
     }
