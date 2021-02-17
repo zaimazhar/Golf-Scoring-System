@@ -29,17 +29,17 @@ Having an official and crucial tournaments require a massive workloads to handle
   - Configure server environment
     - Build Tables
       - Users
-        - Privilege Users (20%)
+        - Privilege Users (100%)
         - Players
       - Competition
   
   - Build all packages
-    - Authentication (60%)
-    - Authorization (10%)
+    - Authentication (100%)
+    - Authorization (100%)
     - ~~CSRF (10%)~~ (__Abandoned__)
     - APIs (?)
-    - Model Class (30%)
-    - Query Builder (55%)
+    - Model Class (60%)
+    - -Query Builder-
     - ~~Seeder~~
     - Score Computation
 
