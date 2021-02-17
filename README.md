@@ -16,11 +16,12 @@ Having an official and crucial tournaments require a massive workloads to handle
 
 ## Issues
 - Score Relationships (How to Store Score Properly)
+  - Refer to ERD
 
 ## TO-DOs
 - Frontend
-  - Login Page (10%)
-  - Organizer Dashboard
+  - Login Page (30%)
+  - Organizer Dashboard (10%)
   - Admin Dashboard
   - Player Dashboard
 
@@ -28,15 +29,17 @@ Having an official and crucial tournaments require a massive workloads to handle
   - Configure server environment
     - Build Tables
       - Users
+        - Privilege Users (20%)
+        - Players
       - Competition
   
   - Build all packages
-    - Authentication (15%)
-    - Authorization
+    - Authentication (30%)
+    - Authorization (5%)
     - ~~CSRF (10%)~~ (__Abandoned__)
     - APIs (?)
-    - Model Class (10%)
-    - Query Builder (5%)
+    - Model Class (30%)
+    - Query Builder (55%)
     - ~~Seeder~~
     - Score Computation
 

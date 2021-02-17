@@ -6,23 +6,15 @@ use php\logic\Auth;
 
 $auth = new Auth;
 
-$auth->start();
-$auth->check();
-
-// foreach($data->getUser() as $data_sql) {
-//     echo "Name is <b>" . $data_sql['name'] . "</b> - Email is <b>" . $data_sql['email'] . "</b> - Gender is <b>" . $data_sql['gender'] . "</b><br>";
-// }
-
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Organizer Dashboard</title>
+    <?php include_once "./components/head.php" ?>
 </head>
 <body>
+    <?php include_once "./components/navbar.php" ?>
     <section><br><br>
         <form action="/posts/organizer_register_admin.php" method="post">
             <label style="margin-right: 20px;" for="nama">NAMA</label>

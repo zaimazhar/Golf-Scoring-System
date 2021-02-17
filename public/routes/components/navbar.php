@@ -1,11 +1,3 @@
-<?php
-
-use php\logic\Auth;
-
-$auth = new Auth;
-
-?>
-
 <nav>
     <ul>
         <li><a href="/">Home</a></li>

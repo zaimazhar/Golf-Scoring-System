@@ -7,7 +7,6 @@ use php\logic\Seeder;
 
 $auth = new Auth;
 
-$auth->start();
 $auth->check();
 // (new Seeder)->SeedAdmin();
 

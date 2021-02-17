@@ -2,9 +2,15 @@
 
 include_once "../ServiceProvider.php";
 
+use php\logic\Auth;
 use php\logic\Sessions;
+use php\misc\Helper;
+
+$auth = new Auth;
 
 Sessions::old("get");
+
+$post = Helper::route("post.organizer_register_admin");
 
 ?>
 
@@ -14,6 +20,7 @@ Sessions::old("get");
     <?php include_once "components/head.php" ?>
 </head>
 <body>
+    <?php include_once "./components/navbar.php" ?>
     <form action="./posts/organizer_register_admin.php" method="post">
         <label for="email">Email</label><br>
         <input type="text" name="user_email" id="email"><br>

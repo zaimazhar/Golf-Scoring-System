@@ -2,7 +2,10 @@
 
 include "../ServiceProvider.php";
 
+use php\logic\Auth;
 use php\logic\Sessions;
+
+$auth = new Auth;
 
 Sessions::old("error");
 Sessions::old("get");
