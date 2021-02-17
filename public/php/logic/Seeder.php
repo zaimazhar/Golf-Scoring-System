@@ -20,8 +20,4 @@ class Seeder extends Model {
             "user_permission" => "superadmin"
         ));
     }
-
-    public function staticTry() {
-        $this->where([['id', '=', 2], ['name', '=', 'devzaim']])->get();
-    }
 }

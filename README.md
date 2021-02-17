@@ -20,10 +20,10 @@ Having an official and crucial tournaments require a massive workloads to handle
 
 ## TO-DOs
 - Frontend
-  - Login Page (30%)
+  - Login Page (10%)
   - Organizer Dashboard (10%)
   - Admin Dashboard
-  - Player Dashboard
+  - Public View
 
 - Backend
   - Configure server environment
@@ -34,8 +34,8 @@ Having an official and crucial tournaments require a massive workloads to handle
       - Competition
   
   - Build all packages
-    - Authentication (30%)
-    - Authorization (5%)
+    - Authentication (60%)
+    - Authorization (10%)
     - ~~CSRF (10%)~~ (__Abandoned__)
     - APIs (?)
     - Model Class (30%)
