@@ -1,13 +1,11 @@
 <?php
 
-use php\database\Model;
 use php\logic\Auth;
 
-class Player extends Model {
+class Player {
     private $auth;
     
     public function __construct() {
-        parent::__construct();
         $this->auth = new Auth;
     }
 
