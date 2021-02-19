@@ -2,6 +2,8 @@
 
 namespace php\misc;
 
+use php\logic\Sessions;
+
 Class Helper {
     /**
      * Check if defined needle exists in the string
@@ -20,7 +22,7 @@ Class Helper {
     /**
      * Redirect to homepage
      */
-    static public function home() {
+    static public function home($get_data = null) {
         header("Location: /");
     }
 

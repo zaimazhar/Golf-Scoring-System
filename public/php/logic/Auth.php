@@ -8,6 +8,8 @@ use php\misc\Helper;
 class Auth extends Model {
     private $user;
     private $auth;
+    private $time = 60;
+    private $expired = false;
 
     /**
      * Construct the class
@@ -15,6 +17,8 @@ class Auth extends Model {
     public function __construct() {
         parent::__construct();
         $this->start();
+        if(isset($_SESSION['expire'])) 
+            $this->expireSession();
     }
 
     /**
@@ -88,8 +92,11 @@ class Auth extends Model {
 
         session_unset();
         session_destroy();
-
+        
         if(Sessions::check(PHP_SESSION_NONE)) {
+            if($this->expired)
+                Sessions::setSession("expired", "Logged Out. Your Session Expired.");
+            
             Helper::home();
         } else {
             return false;
@@ -126,9 +133,22 @@ class Auth extends Model {
             $_SESSION['id'] = $this->user['id'];
             $_SESSION['name'] = $this->user['user_name'];
             $_SESSION['permission'] = $this->user['user_permission'];
+            $_SESSION['expire'] = time() + $this->time;
             Helper::home();
         } else {
             echo "Nope";
+        }
+    }
+
+    /**
+     * Expire a session when equal or exceed the expiration time
+     */
+    private function expireSession() {
+        if(time() >= $_SESSION['expire']) {
+            $this->expired = true;
+            $this->logout();
+        } else {
+            $_SESSION['expire'] = time() + $this->time;
         }
     }
 }

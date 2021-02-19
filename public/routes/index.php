@@ -7,8 +7,13 @@ use php\logic\Sessions;
 
 $auth = new Auth;
 
-Sessions::old("error");
-Sessions::old("get");
+
+if(isset($_SESSION['expired'])) {
+    Sessions::old("expired");
+} else {
+    Sessions::old("get");
+    Sessions::old("error");
+}
 
 ?>
 

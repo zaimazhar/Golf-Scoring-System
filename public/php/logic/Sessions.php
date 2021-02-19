@@ -11,11 +11,11 @@ class Sessions {
     }
 
     /**
-     * Close session
+     * Close session (NEED REVIEW)
      */
-    static public function close() {
-        session_write_close();
-    }
+    // static public function close() {
+    //     session_write_close();
+    // }
 
     /**
      * Flash the value of the session
@@ -30,7 +30,6 @@ class Sessions {
             echo $_SESSION[$name];
             unset($_SESSION[$name]);
         }
-        self::close();
     }
 
     /**
@@ -40,9 +39,8 @@ class Sessions {
      * param $data any
      */
     static public function setSession(string $name, $data) {
-        // self::start();
+        self::start();
         $_SESSION[$name] = $data;
-        self::close();
     }
 
     /**
