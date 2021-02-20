@@ -5,8 +5,15 @@ include "../ServiceProvider.php";
 use php\logic\Auth;
 use php\logic\Sessions;
 
-Auth::start();
-Sessions::old('error');
+$auth = new Auth;
+
+
+if(isset($_SESSION['expired'])) {
+    Sessions::old("expired");
+} else {
+    Sessions::old("get");
+    Sessions::old("error");
+}
 
 ?>
 

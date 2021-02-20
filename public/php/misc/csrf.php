@@ -18,6 +18,6 @@ class Csrf {
     }
 
     static public function test() {
-        echo "TESTING FROM CSRF";
+        echo "Kentut";
     }
 }

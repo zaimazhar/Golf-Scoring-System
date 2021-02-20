@@ -5,12 +5,12 @@ spl_autoload_register(function($className) {
     $dir = __DIR__;
 
     $className = str_replace('\\', $ds, $className);
-
     $file = "{$dir}{$ds}{$className}.php";
 
-    if (is_readable($file)) require $file;
+    if(is_readable($file)) {
+        require_once $file;
+    }
 });
-
 
 // class ServiceProvider {
 //     public $register;
