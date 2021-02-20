@@ -44,11 +44,13 @@ class Auth extends Model {
      * Check if the user is authenticated with the correct privilege
      */
     public function checkPrivilege($privilege) {
-        $this->update("new_user", [
+        $this->startTransaction();
+        $this->update("users", [
             "name" => "devzaim",
             "email" => "zaim.azhar97@gmail.com",
             "id" => 1,
         ]);
+        $this->endTransaction();
         if($_SESSION['permission'] !== $privilege) {
             $_SESSION['error'] = "You are not allowed to access the page.";
             Helper::home();
@@ -128,7 +130,7 @@ class Auth extends Model {
      * Attempt login
      */
     public function Attempt(array $data) {
-        $this->user = $this->select("new_user", null, array("user_email" => $data[0]))->get();
+        $this->user = $this->select("users", null, array("user_email" => $data[0]))->get();
         if(password_verify($data[1], $this->user['user_password'])) {
             $_SESSION['id'] = $this->user['id'];
             $_SESSION['name'] = $this->user['user_name'];

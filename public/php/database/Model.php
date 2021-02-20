@@ -18,6 +18,14 @@ class Model extends pgConnection {
         parent::__construct();
     }
 
+    public function startTransaction() {
+        $this->dsn->beginTransaction();
+    }
+
+    public function endTransaction() {
+        $this->dsn->commit();
+    }
+
     /**
      * Create new data
      */
@@ -35,7 +43,7 @@ class Model extends pgConnection {
         $values = substr($values, 0, -1);
         $this->currQuery = "INSERT INTO $db ($columns) VALUES ($values)";
 
-        $this->executeQuery($this->currQuery, $this->arr_data);
+        return $this->executeQuery($this->currQuery, $this->arr_data);
     }
 
     /**
