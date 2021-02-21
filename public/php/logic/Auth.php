@@ -8,7 +8,7 @@ use php\misc\Helper;
 class Auth extends Model {
     private $user;
     private $auth;
-    private $time = 60;
+    private $minutes = 5;
     private $expired = false;
 
     /**
@@ -135,7 +135,7 @@ class Auth extends Model {
             $_SESSION['id'] = $this->user['id'];
             $_SESSION['name'] = $this->user['user_name'];
             $_SESSION['permission'] = $this->user['user_permission'];
-            $_SESSION['expire'] = time() + $this->time;
+            $_SESSION['expire'] = time() + ($this->minutes * 60);
             Helper::home();
         } else {
             echo "Nope";
@@ -150,7 +150,7 @@ class Auth extends Model {
             $this->expired = true;
             $this->logout();
         } else {
-            $_SESSION['expire'] = time() + $this->time;
+            $_SESSION['expire'] = time() + ($this->minutes * 60);
         }
     }
 }

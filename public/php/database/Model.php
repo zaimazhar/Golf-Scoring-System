@@ -57,7 +57,7 @@ class Model extends pgConnection {
      * Get all data after querying
      */
     public function get() {
-        return $this->currStmt->fetch(PDO::FETCH_ASSOC);
+        return $this->currStmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**

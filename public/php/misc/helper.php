@@ -57,4 +57,31 @@ Class Helper {
 
         return $path;
     }
+
+    /**
+     * Check REQUEST_METHOD
+     */
+    static public function checkRequest(string $req) {
+        return $_SERVER['REQUEST_METHOD'] === $req;
+    }
+
+    /**
+     * Denied Access
+     */
+    static public function denyAccess() {
+        Sessions::setSession("get", "Restricted Location!");
+        Helper::home();
+    }
+
+    static public function SanitizeString(string $string) {
+        return filter_var(strip_tags($string), FILTER_SANITIZE_STRING);
+    }
+
+    static public function SanitizeNumber(int $number) {
+        return filter_var($number, FILTER_SANITIZE_NUMBER_INT);
+    }
+
+    static public function SanitizeEmail(string $email) {
+        return filter_var($email, FILTER_SANITIZE_EMAIL);
+    }
 }
