@@ -54,10 +54,17 @@ class Model extends pgConnection {
     // }
 
     /**
-     * Get all data after querying
+     * GET all data after querying
+     */
+    public function getAll() {
+        return $this->currStmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * GET this single data after querying
      */
     public function get() {
-        return $this->currStmt->fetchAll(PDO::FETCH_ASSOC);
+        return $this->currStmt->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -122,6 +129,13 @@ class Model extends pgConnection {
         $this->currQuery = "SELECT $choose FROM $table WHERE " . $this->currQuery;
 
         return $this->executeQuery($this->currQuery, $this->arr_data);
+    }
+
+    /**
+     * Count the query
+     */
+    public function count() {
+        return $this->currStmt->rowCount();
     }
 
     /**

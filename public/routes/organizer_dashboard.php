@@ -11,11 +11,11 @@ $gen_link = "";
 $auth->check();
 $auth->checkPrivilege("superadmin");
 
-$getCompetition = $auth->all("competition")->get();
+$getCompetition = $auth->all("competition")->getAll();
 
 $registeradmin = Helper::route("posts.organizer_register_admin");
 $createcompetition = Helper::route("posts.organizer_create_competition");
-$getIntoCompetition = Helper::route("competition_create");
+$getIntoCompetition = Helper::route("competition");
 
 foreach($getCompetition as $competition) {
     $id = $competition['id'];

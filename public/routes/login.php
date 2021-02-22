@@ -8,8 +8,6 @@ use php\misc\Helper;
 
 $auth = new Auth;
 
-Sessions::old("get");
-
 $post = Helper::route("posts.user_login");
 
 ?>
