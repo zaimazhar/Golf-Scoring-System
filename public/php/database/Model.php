@@ -36,28 +36,27 @@ class Model extends pgConnection {
      * Create multiple new data
      */
     public function createMultiple(string $db, array $columns, array $datas) {
-        // $col = implode(",", $columns);
+        $col = implode(",", $columns);
 
-        // for($i = 0; $i < count($columns); $i++) {
-        //     array_push($this->count, "?");
-        // }
+        for($i = 0; $i < count($columns); $i++) {
+            array_push($this->count, "?");
+        }
 
-        // $cb = function($val) {
-        //     return  "(" . implode(",", array_replace_recursive($val, $this->count)) . ")";
-        // };
+        $cb = function($val) {
+            return  "(" . implode(",", array_replace_recursive($val, $this->count)) . ")";
+        };
 
-        // $values = implode(",", array_map($cb, $datas));
-        // $value = array_values($datas);
-        // $this->currQuery = "INSERT INTO $db ($col) VALUES $values";
+        $values = implode(",", array_map($cb, $datas));
+        $value = array_values($datas);
+        $this->currQuery = "INSERT INTO $db ($col) VALUES $values";
 
-        // $value = array_merge(...$value);
+        $value = array_merge(...$value);
         
-        $this->currQuery = "INSERT INTO venue (competition_id, venue_name) VALUES (?,?), (?,?)";
-        $this->dsn->prepare($this->currQuery)->execute(['1', 'nakcikittt', '1', 'devzaimv2']);
+        // $this->dsn->prepare($this->currQuery)->execute($value);
         // echo $this->currQuery;
         // echo "<br><br>";
         // print_r($value);
-        // return $this->executeQuery($this->currQuery, $value);
+        return $this->executeQuery($this->currQuery, $value);
     }
 
     /**

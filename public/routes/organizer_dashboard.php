@@ -3,6 +3,7 @@
 include_once "../ServiceProvider.php";
 
 use php\logic\Auth;
+use php\logic\Sessions;
 use php\misc\Helper;
 
 $auth = new Auth;
@@ -34,6 +35,7 @@ foreach($getCompetition as $competition) {
 <body>
     <?php include_once "./components/navbar.php" ?>
     <section><br><br>
+        <?php Sessions::old("created_venue"); ?>
         <h2>Create Admin</h2><br>
         <form action="<?= $registeradmin ?>" method="post">
             <label style="margin-right: 20px;" for="email">Email</label>

@@ -3,6 +3,7 @@
 include_once("../ServiceProvider.php");
 
 use php\logic\Auth;
+use php\logic\Sessions;
 use php\misc\Helper;
 
 $auth = new Auth;
@@ -35,7 +36,7 @@ $count = 1;
 
 foreach($venue_get as $venue_click) {
     $vid = $venue_click['id'];
-    $generateVenueLink = "<a href='$venueLink?cid=$cid&vid=$vid'>" . $venue_click['venue_name'] . "</a>";
+    $generateVenueLink .= "<a href='$venueLink?cid=$cid&vid=$vid'>" . $venue_click['venue_name'] . "</a><br>";
 }
 
 for($i = 0; $i < $checkCount; $i++) {
@@ -54,11 +55,14 @@ for($i = 0; $i < $checkCount; $i++) {
     <title>Venue Formats</title>
 </head>
 <body>
+    <?php Sessions::old("error_venue"); ?>
     <?= $generateVenueLink ?>
+    <?php if($checkCount !== 0) { ?>
     <form action="<?= $venuePost ?>" method="post">
         <input type="hidden" name="cid" value="<?= $cid ?>">
         <?= $generateForm ?>
         <button type="submit">Submit</button>
     </form>
+    <?php } ?>
 </body>
 </html>
