@@ -10,6 +10,7 @@ class Model extends pgConnection {
     private $currStmt;
     private $currQuery;
     private $arr_data = [];
+    private $count = [];
 
     /**
      * Initialize the database connection
@@ -18,32 +19,45 @@ class Model extends pgConnection {
         parent::__construct();
     }
 
-    public function startTransaction() {
-        $this->dsn->beginTransaction();
-    }
-
-    public function endTransaction() {
-        $this->dsn->commit();
-    }
-
     /**
      * Create new data
      */
     public function create(string $db, array $datas) {
-        $columns = "";
-        $values = "";
+        $placeholder = "?,";
+        $col = implode(",", array_keys($datas));
+        $placeholder = substr(str_repeat($placeholder, count($datas)), 0, -1);
 
-        foreach($datas as $key => $data) {
-            $columns .= "$key,";
-            $values .= "?,";
-            array_push($this->arr_data, $data);
-        }
+        $this->currQuery = "INSERT INTO $db ($col) VALUES ($placeholder)";
 
-        $columns = substr($columns, 0, -1);
-        $values = substr($values, 0, -1);
-        $this->currQuery = "INSERT INTO $db ($columns) VALUES ($values)";
+        return $this->executeQuery($this->currQuery, array_values($datas));
+    }
 
-        return $this->executeQuery($this->currQuery, $this->arr_data);
+    /**
+     * Create multiple new data
+     */
+    public function createMultiple(string $db, array $columns, array $datas) {
+        // $col = implode(",", $columns);
+
+        // for($i = 0; $i < count($columns); $i++) {
+        //     array_push($this->count, "?");
+        // }
+
+        // $cb = function($val) {
+        //     return  "(" . implode(",", array_replace_recursive($val, $this->count)) . ")";
+        // };
+
+        // $values = implode(",", array_map($cb, $datas));
+        // $value = array_values($datas);
+        // $this->currQuery = "INSERT INTO $db ($col) VALUES $values";
+
+        // $value = array_merge(...$value);
+        
+        $this->currQuery = "INSERT INTO venue (competition_id, venue_name) VALUES (?,?), (?,?)";
+        $this->dsn->prepare($this->currQuery)->execute(['1', 'nakcikittt', '1', 'devzaimv2']);
+        // echo $this->currQuery;
+        // echo "<br><br>";
+        // print_r($value);
+        // return $this->executeQuery($this->currQuery, $value);
     }
 
     /**

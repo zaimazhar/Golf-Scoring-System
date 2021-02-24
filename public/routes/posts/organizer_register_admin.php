@@ -10,17 +10,9 @@ $auth = new Auth;
 if(Helper::checkRequest("GET")) {
     Helper::denyAccess();
 } else {
-    $auth->startTransaction();
     $createUser = $auth->create("users", [
         "user_email" => Helper::SanitizeEmail($_POST['admin_email']),
         "user_name" => Helper::SanitizeString($_POST['admin_name']),
         "user_password" => password_hash($_POST['admin_password'], PASSWORD_BCRYPT),
     ]);
-    $auth->endTransaction();
-
-    if($createUser) {
-        echo "Created";
-    } else {
-        Helper::home();
-    }
 }

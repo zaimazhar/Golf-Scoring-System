@@ -7,8 +7,7 @@ use php\misc\Helper;
 
 class Auth extends Model {
     private $user;
-    private $auth;
-    private $minutes = 5;
+    private $minutes = 30;
     private $expired = false;
 
     /**
@@ -44,13 +43,6 @@ class Auth extends Model {
      * Check if the user is authenticated with the correct privilege
      */
     public function checkPrivilege($privilege) {
-        $this->startTransaction();
-        $this->update("users", [
-            "name" => "devzaim",
-            "email" => "zaim.azhar97@gmail.com",
-            "id" => 1,
-        ]);
-        $this->endTransaction();
         if($_SESSION['permission'] !== $privilege) {
             $_SESSION['error'] = "You are not allowed to access the page.";
             Helper::home();

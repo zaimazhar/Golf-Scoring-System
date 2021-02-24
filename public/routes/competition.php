@@ -3,6 +3,7 @@
 include_once("../ServiceProvider.php");
 
 use php\logic\Auth;
+use php\misc\Helper;
 
 $auth = new Auth;
 
@@ -10,7 +11,7 @@ $auth->check();
 $auth->checkPrivilege("superadmin");
 
 $cid = $_GET['cid'];
-echo $cid;
+
 // $url = parse_url($_SERVER['REQUEST_URI']);
 // parse_str($url['query'], $queries);
 
@@ -20,13 +21,26 @@ echo $cid;
 //     echo $cid;
 // }
 
+$venuePost = Helper::route("posts.organizer_create_venue");
+$venueLink = Helper::route("venue-format");
+
 $competition_data = $auth->find("competition", $cid)->get();
-$venue_count = $auth->find("venue", $cid)->count();
+$venue = $auth->select("venue", null, ["competition_id" => $cid]);
+$venue_count = $venue->count();
+$venue_get = $venue->getAll();
 $checkCount = $competition_data['num_of_venue'] - $venue_count;
 $generateForm = "";
+$generateVenueLink = "";
+$count = 1;
+
+foreach($venue_get as $venue_click) {
+    $vid = $venue_click['id'];
+    $generateVenueLink = "<a href='$venueLink?cid=$cid&vid=$vid'>" . $venue_click['venue_name'] . "</a>";
+}
 
 for($i = 0; $i < $checkCount; $i++) {
-    $generateForm .= "";
+    $generateForm .= "Venue " . $count . ": <input type='text' name='venue[]'><select name='venue_type[]'><option value='solo' selected>Solo</option><option value='team'>Team</option></select><br>";
+    $count++;
 }
 
 ?>
@@ -40,6 +54,11 @@ for($i = 0; $i < $checkCount; $i++) {
     <title>Venue Formats</title>
 </head>
 <body>
-    
+    <?= $generateVenueLink ?>
+    <form action="<?= $venuePost ?>" method="post">
+        <input type="hidden" name="cid" value="<?= $cid ?>">
+        <?= $generateForm ?>
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>

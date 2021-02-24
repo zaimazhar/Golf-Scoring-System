@@ -6,13 +6,19 @@ use php\logic\Auth;
 use php\misc\Helper;
 
 $auth = new Auth;
+$venue = [];
 
-if(Helper::checkRequest("GET") || !$auth->user()) {
+$auth->check();
+$auth->checkPrivilege("superadmin");
+
+if(Helper::checkRequest("GET")) {
     Helper::denyAccess();
 }
 
-$venue = $auth->create("venue", [
-    "competition_id" => $
-])
+// for($i = 0; $i < count($_POST['venue']); $i++) {
+//     array_push($venue, [Helper::SanitizeNumber($_POST['cid']), Helper::SanitizeString($_POST['venue'][$i]), "DEFAULT", "DEFAULT", "DEFAULT"]);
+// }
 
+$cid = $_POST['cid'];
 
+$auth->createMultiple("", [], []);
