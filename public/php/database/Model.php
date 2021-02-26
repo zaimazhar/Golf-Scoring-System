@@ -91,15 +91,21 @@ class Model extends pgConnection {
      * UPDATE Query
      */
     public function update(string $table, array $datas) {
-        $cols = "";
-        foreach($datas as $col => $data) {
-            if($col !== "id") {
-                $cols .= "$col=$data,";
-            }
-        }
+        if(!array_key_exists("id", $datas)) return false;
 
-        $cols = substr($cols, 0, -1);
-        return $this->executeQuery("UPDATE $table SET $cols WHERE id=?", [$datas['id']]);
+        $filterId = array_keys(array_filter($datas, function($id) {
+            if(preg_match("/id/", $id))
+                return $id;
+        }, ARRAY_FILTER_USE_KEY));
+
+        $col = implode(",", array_map(function($key, $val) {
+            return "$key=$val";
+        }, array_keys($datas), array_values($datas)));
+
+        $filteredArr = array_diff_key($datas, array_flip($filterId));
+        
+        // echo $col;
+        // return $this->executeQuery("UPDATE $table SET $col WHERE id=?", [$datas['id']]);
     }
 
     /**
@@ -120,28 +126,14 @@ class Model extends pgConnection {
      * SELECT data based on table, with specific columns and id (if applicable)
      */
     public function select(string $table, array $cols = null, array $wheres) {
-        $choose = "";
+        $cb = function($val) {
+            return "$val=? AND ";
+        };
 
-        foreach($wheres as $key => $data) {
-            $$key = $key;
-            $this->currQuery .= "$key=? AND ";
-            array_push($this->arr_data, $data);
-        }
+        $cols = $cols ? implode(",", $cols) : "*";
+        $col_check = substr(implode(",", array_map($cb, array_keys($wheres))), 0, -5);
 
-        $this->currQuery = substr($this->currQuery, 0, -5);
-
-        if($cols === null) {
-            $choose = "*";
-        } else {
-            foreach($cols as $col) {
-                $choose .= "$col,";
-            }
-            $choose = substr($choose, 0, -1);
-        }
-
-        $this->currQuery = "SELECT $choose FROM $table WHERE " . $this->currQuery;
-
-        return $this->executeQuery($this->currQuery, $this->arr_data);
+        return $this->executeQuery("SELECT $cols FROM $table WHERE " . $col_check, array_values($wheres));
     }
 
     /**
