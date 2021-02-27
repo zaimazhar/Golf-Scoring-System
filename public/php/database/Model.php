@@ -93,19 +93,16 @@ class Model extends pgConnection {
     public function update(string $table, array $datas) {
         if(!array_key_exists("id", $datas)) return false;
 
-        $filterId = array_keys(array_filter($datas, function($id) {
-            if(preg_match("/id/", $id))
-                return $id;
-        }, ARRAY_FILTER_USE_KEY));
+        $filterId = array_filter($datas, function($id) {
+            return $id === "id";
+        }, ARRAY_FILTER_USE_KEY);
 
+        $filteredArr = array_diff_key($datas, $filterId);
         $col = implode(",", array_map(function($key, $val) {
-            return "$key=$val";
-        }, array_keys($datas), array_values($datas)));
+            return "$key='$val'";
+        }, array_keys($filteredArr), array_values($filteredArr)));
 
-        $filteredArr = array_diff_key($datas, array_flip($filterId));
-        
-        // echo $col;
-        // return $this->executeQuery("UPDATE $table SET $col WHERE id=?", [$datas['id']]);
+        return $this->executeQuery("UPDATE $table SET $col WHERE id=?", array_values($filterId));
     }
 
     /**
@@ -131,7 +128,7 @@ class Model extends pgConnection {
         };
 
         $cols = $cols ? implode(",", $cols) : "*";
-        $col_check = substr(implode(",", array_map($cb, array_keys($wheres))), 0, -5);
+        $col_check = substr(implode("", array_map($cb, array_keys($wheres))), 0, -5);
 
         return $this->executeQuery("SELECT $cols FROM $table WHERE " . $col_check, array_values($wheres));
     }
