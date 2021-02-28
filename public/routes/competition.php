@@ -24,6 +24,7 @@ $cid = $_GET['cid'];
 
 $venuePost = Helper::route("posts.organizer_create_venue");
 $venueLink = Helper::route("venue_format");
+$venueDelete = Helper::route("posts.venue_delete");
 
 $competition_data = $auth->find("competition", $cid)->get();
 $venue = $auth->select("venue", null, ["competition_id" => $cid]);
@@ -36,11 +37,6 @@ if($venue_count > 0) {
     $generateVenueLink = "";
     $count = 1;
     
-    foreach($venue_get as $venue_click) {
-        $vid = $venue_click['id'];
-        $generateVenueLink .= "<a href='$venueLink?cid=$cid&vid=$vid'>" . $venue_click['venue_name'] . "</a><br>";
-    }
-    
     for($i = 0; $i < $checkCount; $i++) {
         $generateForm .= "Venue " . $count . ": <input type='text' name='venue[]'><select name='venue_type[]'><option value='solo' selected>Solo</option><option value='team'>Team</option></select><br>";
         $count++;
@@ -48,7 +44,6 @@ if($venue_count > 0) {
 } else {
 
 }
-
 
 ?>
 
@@ -63,7 +58,14 @@ if($venue_count > 0) {
 <body>
     <?php Sessions::old("error_venue"); ?>
     <?php if($venue_count > 0) { ?>
-    <?= $generateVenueLink ?>
+        <?php foreach($venue_get as $venue_click) { ?>
+            <?php $vid = $venue_click['id']; $vname = $venue_click['venue_name']; ?>
+            <form action="<?= "$venueDelete?vid=$vid" ?>" method="post">
+                <a href=" <?= "$venueLink?cid=$cid&vid=$vid" ?>"><?= $vname ?></a>
+                <button onclick="venueDeleteConfirmation('<?= $vname ?>',<?= $vid ?>)">Delete</button>
+                <br>
+            </form>
+        <?php } ?>
     <?php if($checkCount !== 0) { ?>
     <form action="<?= $venuePost ?>" method="post">
         <input type="hidden" name="cid" value="<?= $cid ?>">
@@ -74,5 +76,6 @@ if($venue_count > 0) {
     <?php } else {?>
         <p>There is no venue.</p>
     <?php } ?>
+    <?php include_once("./components/footer.php"); ?>
 </body>
 </html>
