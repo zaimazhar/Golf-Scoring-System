@@ -52,11 +52,9 @@ class Model extends pgConnection {
 
         $value = array_merge(...$value);
         
-        // $this->dsn->prepare($this->currQuery)->execute($value);
-        // echo $this->currQuery;
-        // echo "<br><br>";
-        // print_r($value);
-        return $this->executeQuery($this->currQuery, $value);
+        $this->executeQuery($this->currQuery, $value);
+
+        return $this;
     }
 
     /**

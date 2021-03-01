@@ -36,6 +36,7 @@ foreach($getCompetition as $competition) {
     <?php include_once "./components/navbar.php" ?>
     <section><br><br>
         <?php Sessions::old("created_venue"); ?>
+        <?php Sessions::old("error_venue"); ?>
         <h2>Create Admin</h2><br>
         <form action="<?= $registeradmin ?>" method="post">
             <label style="margin-right: 20px;" for="email">Email</label>
