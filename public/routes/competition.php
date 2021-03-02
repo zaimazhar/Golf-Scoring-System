@@ -9,7 +9,7 @@ use php\misc\Helper;
 $auth = new Auth;
 
 $auth->check();
-$auth->checkPrivilege("superadmin");
+$auth->checkPrivilege(["superadmin", "admin"]);
 
 $cid = $_GET['cid'];
 
@@ -22,8 +22,8 @@ $cid = $_GET['cid'];
 //     echo $cid;
 // }
 
-$venuePost = Helper::route("posts.organizer_create_venue");
-$venueLink = Helper::route("venue_format");
+$venuePost = Helper::route("posts.admins_create_venue");
+$venueLink = Helper::route("venue");
 $venueDelete = Helper::route("posts.venue_delete");
 
 $competition_data = $auth->find("competition", $cid)->get();

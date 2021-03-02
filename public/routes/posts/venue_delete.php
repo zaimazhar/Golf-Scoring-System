@@ -8,7 +8,7 @@ include_once("../../ServiceProvider.php");
 $auth = new Auth;
 
 $auth->check();
-$auth->checkPrivilege("superadmin");
+$auth->checkPrivilege(["superadmin"]);
 
 if(Helper::checkRequest("POST")) {
     if(isset($_POST['id'])) {

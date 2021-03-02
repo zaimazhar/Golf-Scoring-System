@@ -1,4 +1,19 @@
-console.log("Hello World");
+let column = document.querySelector("#column")
+
+column.addEventListener("click", function() {
+    let form_venue = document.querySelector("#form_venue")
+    let div = document.createElement("div")
+    let input_player_name = document.createElement("input")
+    let input_player_handicap = document.createElement("input")
+    input_player_name.setAttribute("type", "text")
+    input_player_name.setAttribute("name", "player_name[]")
+    input_player_handicap.setAttribute("type", "number")
+    input_player_handicap.setAttribute("name", "player_handicap[]")
+    div.appendChild(input_player_name)
+    input_player_name.insertAdjacentElement("afterend", input_player_handicap)
+    let last_div = form_venue.lastElementChild
+    last_div.insertAdjacentElement("afterend", div)
+})
 
 function venueDeleteConfirmation(vname, vid) {
     let vname_store = prompt(`Type '${vname}' to delete`)

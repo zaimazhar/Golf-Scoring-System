@@ -10,7 +10,7 @@ $auth = new Auth;
 $venue = [];
 
 $auth->check();
-$auth->checkPrivilege("superadmin");
+$auth->checkPrivilege(["superadmin"]);
 
 if(Helper::checkRequest("GET")) {
     Helper::denyAccess();

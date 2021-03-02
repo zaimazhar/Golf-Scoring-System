@@ -7,6 +7,9 @@ use php\misc\Helper;
 
 $auth = new Auth;
 
+$auth->check();
+$auth->checkPrivilege(["superadmin"]);
+
 if(Helper::checkRequest("GET")) {
     Helper::denyAccess();
 } else {

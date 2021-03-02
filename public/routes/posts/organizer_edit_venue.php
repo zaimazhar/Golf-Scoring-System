@@ -9,7 +9,7 @@ use php\misc\Helper;
 $auth = new Auth;
 
 $auth->check();
-$auth->checkPrivilege("superadmin");
+$auth->checkPrivilege(["superadmin", "admin"]);
 
 $cid = $_GET['cid'];
 $vid = $_GET['vid'];
@@ -22,6 +22,6 @@ if($update)
 else
     Sessions::setSession("venue_update", "Failed to update $venue_name");
 
-Helper::redirect("venue_format?cid=$cid&vid=$vid");
+Helper::redirect("venue?cid=$cid&vid=$vid");
 
 ?>

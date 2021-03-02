@@ -9,14 +9,23 @@ use php\misc\Helper;
 $auth = new Auth;
 
 $auth->check();
-$auth->checkPrivilege("superadmin");
+$auth->checkPrivilege(["superadmin", "admin"]);
 
 $cid = $_GET['cid'];
 $vid = $_GET['vid'];
 
 $editVenue = Helper::route("posts.organizer_edit_venue?cid=$cid&vid=$vid");
+$addPlayer = Helper::route("posts.organizer_add_player?cid=$cid&vid=$vid");
 
 $data = $auth->select("venue", null, ["id" => $vid, "competition_id" => $cid])->get();
+
+if($data['venue_type'] === "solo") {
+    $type = true;
+    $participants = $auth->select("players", null, ["venue_id" => $vid])->getAll();
+} else {
+    $type = false;
+    $participants = $auth->select("teams", null, ["venue_id" => $vid])->getAll();
+}
 
 // $auth->update("venue", ["id" => $cid, "competition_id" => $vid, "type" => "team"]);
 // var_dump($data);
@@ -59,5 +68,23 @@ $data = $auth->select("venue", null, ["id" => $vid, "competition_id" => $cid])->
     <?php } else { ?>
         <p>No data found for the requested venue.</p>
     <?php } ?>
+    <br><br>
+    <form id="form_venue" action="<?= $addPlayer ?>" method="post">
+        <div>
+            <input type="text" name="player_name[]">
+            <input type="number" name="player_handicap[]">
+        </div>
+    </form>
+    <button type="submit" form="form_venue">Submit</button>
+    <button id="column">Add Columns</button>
+    <br><br>
+    <?php foreach($participants as $participant) { ?>
+        <?php if($type) { ?>
+            <span><?= $participant['id'] ?></span><span><?= $participant['player_name'] ?></span><span><?= $participant['player_handicap'] ?></span>
+        <?php } else { ?>
+            <span><?= $participant['id'] ?></span><span><?= $participant['team_name'] ?></span><span><?= $participant['team_handicap'] ?></span>
+        <?php } ?>
+    <?php } ?>
+    <?php include_once("./components/footer.php"); ?>
 </body>
 </html>

@@ -1,13 +1,25 @@
 <?php
 
 use php\logic\Auth;
+use php\misc\Helper;
 
 include_once "../ServiceProvider.php";
 
 $auth = new Auth;
+$gen_link = "";
 
 $auth->check();
-$auth->checkPrivilege("admin");
+$auth->checkPrivilege(["admin"]);
+
+$getCompetition = $auth->all("competition")->getAll();
+$getIntoCompetition = Helper::route("competition");
+
+foreach($getCompetition as $competition) {
+    $id = $competition['id'];
+    $comp_name = $competition['competition_name'];
+    $href = "$getIntoCompetition?cid=$id";
+    $gen_link .= "<a href='$href'>$comp_name</a>";
+}
 
 ?>
 
@@ -19,5 +31,9 @@ $auth->checkPrivilege("admin");
 </head>
 <body>
     <?php include_once "./components/navbar.php" ?>
+    <br>
+    <br>
+    <br>
+    <?= $gen_link ?>
 </body>
 </html>

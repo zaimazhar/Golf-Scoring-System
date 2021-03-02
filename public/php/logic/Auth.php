@@ -42,12 +42,12 @@ class Auth extends Model {
     /**
      * Check if the user is authenticated with the correct privilege
      */
-    public function checkPrivilege($privilege) {
-        if($_SESSION['permission'] !== $privilege) {
+    public function checkPrivilege(array $privilege) {
+        if(in_array($_SESSION['permission'], $privilege)) {
+            return true;
+        } else {
             $_SESSION['error'] = "You are not allowed to access the page.";
             Helper::home();
-        } else {
-            return true;
         }
     }
 
@@ -123,6 +123,7 @@ class Auth extends Model {
      */
     public function Attempt(array $data) {
         $this->user = $this->select("users", null, array("user_email" => $data[0]))->get();
+        var_dump($this->user);
         if(password_verify($data[1], $this->user['user_password'])) {
             $_SESSION['id'] = $this->user['id'];
             $_SESSION['name'] = $this->user['user_name'];

@@ -10,7 +10,7 @@ $auth = new Auth;
 $gen_link = "";
 
 $auth->check();
-$auth->checkPrivilege("superadmin");
+$auth->checkPrivilege(["superadmin"]);
 
 $getCompetition = $auth->all("competition")->getAll();
 
