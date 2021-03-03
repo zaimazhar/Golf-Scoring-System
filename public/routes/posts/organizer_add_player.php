@@ -22,13 +22,8 @@ for($i = 0; $i < count($_POST['player_name']); $i++) {
     }
 }
 
-$check_type = $auth->find("venue", $_GET['vid'])->get();
+$query = $auth->createMultiple("participant", ["name", "handicap", "venue_id"], $dataForm);
 
-if($check_type['venue_type'] === "solo") {
-    $query = $auth->createMultiple("players", ["player_name", "player_handicap", "venue_id"], $dataForm);
-} else {
-    $query = $auth->createMultiple("teams", ["team_name", "team_handicap", "venue_id"], $dataForm);
-}
 
 if($query) {
     $vname = $check_type['venue_name'];

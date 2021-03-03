@@ -18,17 +18,8 @@ $editVenue = Helper::route("posts.organizer_edit_venue?cid=$cid&vid=$vid");
 $addPlayer = Helper::route("posts.organizer_add_player?cid=$cid&vid=$vid");
 
 $data = $auth->select("venue", null, ["id" => $vid, "competition_id" => $cid])->get();
+$participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid])->getAll();
 
-if($data['venue_type'] === "solo") {
-    $type = true;
-    $participants = $auth->select("players", null, ["venue_id" => $vid])->getAll();
-} else {
-    $type = false;
-    $participants = $auth->select("teams", null, ["venue_id" => $vid])->getAll();
-}
-
-// $auth->update("venue", ["id" => $cid, "competition_id" => $vid, "type" => "team"]);
-// var_dump($data);
 ?>
 
 <!DOCTYPE html>
@@ -79,11 +70,7 @@ if($data['venue_type'] === "solo") {
     <button id="column">Add Columns</button>
     <br><br>
     <?php foreach($participants as $participant) { ?>
-        <?php if($type) { ?>
-            <span><?= $participant['id'] ?></span><span><?= $participant['player_name'] ?></span><span><?= $participant['player_handicap'] ?></span>
-        <?php } else { ?>
-            <span><?= $participant['id'] ?></span><span><?= $participant['team_name'] ?></span><span><?= $participant['team_handicap'] ?></span>
-        <?php } ?>
+        <a href="<?= Helper::route("participant?vid=$vid&pid=" . $participant['id'] ) ?>"><?= $participant['name'] ?></a>
     <?php } ?>
     <?php include_once("./components/footer.php"); ?>
 </body>

@@ -1,6 +1,7 @@
 <?php
 
 use php\logic\Auth;
+use php\logic\Sessions;
 use php\misc\Helper;
 
 include_once "../ServiceProvider.php";
@@ -31,6 +32,8 @@ foreach($getCompetition as $competition) {
 </head>
 <body>
     <?php include_once "./components/navbar.php" ?>
+    <?php Sessions::old("created_venue"); ?>
+    <?php Sessions::old("error_venue"); ?>
     <br>
     <br>
     <br>

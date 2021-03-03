@@ -10,7 +10,7 @@ $auth = new Auth;
 $venue = [];
 
 $auth->check();
-$auth->checkPrivilege(["superadmin"]);
+$auth->checkPrivilege(["superadmin", "admin"]);
 
 if(Helper::checkRequest("GET")) {
     Helper::denyAccess();
@@ -27,8 +27,14 @@ $query = $auth->createMultiple("venue", ["competition_id", "venue_name", "venue_
 if($query->count() > 0) {
     $venue = implode(" ", $_POST['venue']);
     Sessions::setSession("created_venue", "Successfully created venue for <b>$venue</b>");
-    Helper::redirect("organizer_dashboard");
+    if($auth->permission() === "superadmin") 
+        Helper::redirect("organizer_dashboard");
+    else
+        Helper::redirect("administrator_dashboard");
 } else {
     Sessions::setSession("error_venue", "Unable to insert venue");
-    Helper::redirect("organizer_dashboard");
+    if($auth->permission() === "superadmin") 
+        Helper::redirect("organizer_dashboard");
+    else
+        Helper::redirect("administrator_dashboard");
 }
