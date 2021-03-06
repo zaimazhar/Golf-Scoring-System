@@ -3,10 +3,14 @@
 include "../ServiceProvider.php";
 
 use php\logic\Auth;
+use php\logic\Competition;
 use php\logic\Sessions;
+use php\misc\Helper;
 
 $auth = new Auth;
+$competition = new Competition;
 
+$comp_id = Helper::route("public_competition");
 
 if(isset($_SESSION['expired'])) {
     Sessions::old("expired");
@@ -30,12 +34,15 @@ if(isset($_SESSION['expired'])) {
         <h4>homepage</h4>
         <table>
             <tr>
-                <th>OKAY</th>
+                <th>Competition</th>
             </tr>
+            <?php foreach($competition->showAllCompetition() as $data) { ?>
             <tr>
-                <td>ALRIGHT</td>
+                <td><a href="<?= "$comp_id?cid=" . $data['id'] ?>"><?= $data['competition_name']; ?></a></td>
             </tr>
+            <?php } ?>
         </table>
+
     </main>
 </body>
 </html>
