@@ -12,6 +12,7 @@ $auth->checkPrivilege(["superadmin", "admin"]);
 
 $pid = $_GET['pid'];
 $vid = $_GET['vid'];
+$keep_get_score = [];
 
 $postScore = Helper::route("posts.score_insert?vid=$vid&pid=$pid");
 
@@ -19,10 +20,18 @@ $venue_max_hole = $auth->select("venue", ["venue_holes"], ["id" => $vid])->get()
 $participant = $auth->select("participant", ["name"], ["id" => $pid])->get();
 $score = $auth->select("score", ["hole", "par"], ["venue_id" => $vid, "player_id" => $pid]);
 
+$venue_hole = range(1, $venue_max_hole['venue_holes']);
 $holes = $score->getAll();
 $hole_filled = $score->count();
+
+foreach($holes as $get_score) {
+    array_push($keep_get_score, $get_score['hole']);
+}
+
+$hole_diff = array_diff($venue_hole, $keep_get_score);
+
 $unfilled_hole = $venue_max_hole['venue_holes'] - $hole_filled++;
-echo $unfilled_hole . "<br>";
+echo "<br>";
 
 ?>
 
@@ -34,14 +43,14 @@ echo $unfilled_hole . "<br>";
 </head>
 <body>
     <?php foreach($holes as $hole) { ?>
-        <?= "Hole " . $hole['hole'] . " with par of " . $hole['par'] . "<br>" ?>
+        <span>Hole <?= $hole['hole'] ?> with par of <?= $hole['par'] ?> </span><a href="">Edit</a><br>
     <?php } ?>
     <br><br>
     <?php if($unfilled_hole > 0) { ?>
     <form action="<?= $postScore ?>" method="post">
-        <?php for($initial = 0; $initial < $unfilled_hole; $initial++, $hole_filled++) { ?>
-            <input type="hidden" name="hole[]" value="<?= $hole_filled ?>">
-            <label for="hole<?= $hole_filled ?>">Hole <?= $hole_filled ?></label><input type="number" style="margin-left: 20px;" placeholder="Par" id="hole<?= $hole_filled ?>" name="par[]"><br>
+        <?php foreach($hole_diff as $diff) { ?>
+            <input type="hidden" name="hole[]" value="<?= $diff ?>">
+            <label for="hole<?= $diff ?>">Hole <?= $diff?></label><input type="number" style="margin-left: 20px;" placeholder="Par" id="hole<?= $diff ?>" name="par[]"><br>
         <?php } ?>
         <button type="submit">Submit</button>
     <?php } ?>
