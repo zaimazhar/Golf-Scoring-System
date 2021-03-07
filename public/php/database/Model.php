@@ -51,10 +51,8 @@ class Model extends pgConnection {
         $this->currQuery = "INSERT INTO $db ($col) VALUES $values";
 
         $value = array_merge(...$value);
-        
-        $this->executeQuery($this->currQuery, $value);
 
-        return $this;
+        return $this->executeQuery($this->currQuery, $value);
     }
 
     /**
@@ -120,7 +118,7 @@ class Model extends pgConnection {
     /**
      * SELECT data based on table, with specific columns and id (if applicable)
      */
-    public function select(string $table, array $cols = null, array $wheres) {
+    public function select(string $table, array $cols = null, array $wheres, string $order = null) {
         $cb = function($val) {
             return "$val=? AND ";
         };
@@ -128,7 +126,11 @@ class Model extends pgConnection {
         $cols = $cols ? implode(",", $cols) : "*";
         $col_check = substr(implode("", array_map($cb, array_keys($wheres))), 0, -5);
 
-        return $this->executeQuery("SELECT $cols FROM $table WHERE " . $col_check, array_values($wheres));
+        if($order == null) {
+            return $this->executeQuery("SELECT $cols FROM $table WHERE " . $col_check, array_values($wheres));
+        } else {
+            return $this->executeQuery("SELECT $cols FROM $table WHERE " . $col_check . " ORDER BY $order", array_values($wheres));
+        }
     }
 
     /**
@@ -136,6 +138,13 @@ class Model extends pgConnection {
      */
     public function count() {
         return $this->currStmt->rowCount();
+    }
+
+    /**
+     * Return the query in order
+     */
+    public function orderBy() {
+        return $this->currStmt->orderBy;
     }
 
     /**

@@ -18,7 +18,7 @@ $postScore = Helper::route("posts.score_insert?vid=$vid&pid=$pid");
 
 $venue_max_hole = $auth->select("venue", ["venue_holes"], ["id" => $vid])->get();
 $participant = $auth->select("participant", ["name"], ["id" => $pid])->get();
-$score = $auth->select("score", ["hole", "par"], ["venue_id" => $vid, "player_id" => $pid]);
+$score = $auth->select("score", ["hole", "par"], ["venue_id" => $vid, "player_id" => $pid], 'hole');
 
 $venue_hole = range(1, $venue_max_hole['venue_holes']);
 $holes = $score->getAll();
