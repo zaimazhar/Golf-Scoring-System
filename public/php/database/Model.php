@@ -10,6 +10,7 @@ class Model extends pgConnection {
     private $currStmt;
     private $currQuery;
     private $arr_data = [];
+    private $count = [];
 
     /**
      * Initialize the database connection
@@ -22,20 +23,38 @@ class Model extends pgConnection {
      * Create new data
      */
     public function create(string $db, array $datas) {
-        $columns = "";
-        $values = "";
+        $placeholder = "?,";
+        $col = implode(",", array_keys($datas));
+        $placeholder = substr(str_repeat($placeholder, count($datas)), 0, -1);
 
-        foreach($datas as $key => $data) {
-            $columns .= "$key,";
-            $values .= "?,";
-            array_push($this->arr_data, $data);
+        $this->currQuery = "INSERT INTO $db ($col) VALUES ($placeholder)";
+
+        return $this->executeQuery($this->currQuery, array_values($datas));
+    }
+
+    /**
+     * Create multiple new data
+     */
+    public function createMultiple(string $db, array $columns, array $datas) {
+        $col = implode(",", $columns);
+
+        for($i = 0; $i < count($columns); $i++) {
+            array_push($this->count, "?");
         }
 
-        $columns = substr($columns, 0, -1);
-        $values = substr($values, 0, -1);
-        $this->currQuery = "INSERT INTO $db ($columns) VALUES ($values)";
+        $cb = function($val) {
+            return  "(" . implode(",", array_replace_recursive($val, $this->count)) . ")";
+        };
 
-        $this->executeQuery($this->currQuery, $this->arr_data);
+        $values = implode(",", array_map($cb, $datas));
+        $value = array_values($datas);
+        $this->currQuery = "INSERT INTO $db ($col) VALUES $values";
+
+        $value = array_merge(...$value);
+        
+        $this->executeQuery($this->currQuery, $value);
+
+        return $this;
     }
 
     /**
@@ -46,7 +65,14 @@ class Model extends pgConnection {
     // }
 
     /**
-     * Get all data after querying
+     * GET all data after querying
+     */
+    public function getAll() {
+        return $this->currStmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * GET this single data after querying
      */
     public function get() {
         return $this->currStmt->fetch(PDO::FETCH_ASSOC);
@@ -63,15 +89,18 @@ class Model extends pgConnection {
      * UPDATE Query
      */
     public function update(string $table, array $datas) {
-        $cols = "";
-        foreach($datas as $col => $data) {
-            if($col !== "id") {
-                $cols .= "$col=$data,";
-            }
-        }
+        if(!array_key_exists("id", $datas)) return false;
 
-        $cols = substr($cols, 0, -1);
-        return $this->executeQuery("UPDATE $table SET $cols WHERE id=?", [$datas['id']]);
+        $filterId = array_filter($datas, function($id) {
+            return $id === "id";
+        }, ARRAY_FILTER_USE_KEY);
+
+        $filteredArr = array_diff_key($datas, $filterId);
+        $col = implode(",", array_map(function($key, $val) {
+            return "$key='$val'";
+        }, array_keys($filteredArr), array_values($filteredArr)));
+
+        return $this->executeQuery("UPDATE $table SET $col WHERE id=?", array_values($filterId));
     }
 
     /**
@@ -92,28 +121,21 @@ class Model extends pgConnection {
      * SELECT data based on table, with specific columns and id (if applicable)
      */
     public function select(string $table, array $cols = null, array $wheres) {
-        $choose = "";
+        $cb = function($val) {
+            return "$val=? AND ";
+        };
 
-        foreach($wheres as $key => $data) {
-            $$key = $key;
-            $this->currQuery .= "$key=? AND ";
-            array_push($this->arr_data, $data);
-        }
+        $cols = $cols ? implode(",", $cols) : "*";
+        $col_check = substr(implode("", array_map($cb, array_keys($wheres))), 0, -5);
 
-        $this->currQuery = substr($this->currQuery, 0, -5);
+        return $this->executeQuery("SELECT $cols FROM $table WHERE " . $col_check, array_values($wheres));
+    }
 
-        if($cols === null) {
-            $choose = "*";
-        } else {
-            foreach($cols as $col) {
-                $choose .= "$col,";
-            }
-            $choose = substr($choose, 0, -1);
-        }
-
-        $this->currQuery = "SELECT $choose FROM $table WHERE " . $this->currQuery;
-
-        return $this->executeQuery($this->currQuery, $this->arr_data);
+    /**
+     * Count the query
+     */
+    public function count() {
+        return $this->currStmt->rowCount();
     }
 
     /**

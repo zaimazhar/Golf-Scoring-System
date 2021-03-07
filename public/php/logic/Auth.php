@@ -7,8 +7,7 @@ use php\misc\Helper;
 
 class Auth extends Model {
     private $user;
-    private $auth;
-    private $time = 60;
+    private $minutes = 30;
     private $expired = false;
 
     /**
@@ -43,17 +42,12 @@ class Auth extends Model {
     /**
      * Check if the user is authenticated with the correct privilege
      */
-    public function checkPrivilege($privilege) {
-        $this->update("new_user", [
-            "name" => "devzaim",
-            "email" => "zaim.azhar97@gmail.com",
-            "id" => 1,
-        ]);
-        if($_SESSION['permission'] !== $privilege) {
+    public function checkPrivilege(array $privilege) {
+        if(in_array($_SESSION['permission'], $privilege)) {
+            return true;
+        } else {
             $_SESSION['error'] = "You are not allowed to access the page.";
             Helper::home();
-        } else {
-            return true;
         }
     }
 
@@ -128,12 +122,13 @@ class Auth extends Model {
      * Attempt login
      */
     public function Attempt(array $data) {
-        $this->user = $this->select("new_user", null, array("user_email" => $data[0]))->get();
+        $this->user = $this->select("users", null, array("user_email" => $data[0]))->get();
+        var_dump($this->user);
         if(password_verify($data[1], $this->user['user_password'])) {
             $_SESSION['id'] = $this->user['id'];
             $_SESSION['name'] = $this->user['user_name'];
             $_SESSION['permission'] = $this->user['user_permission'];
-            $_SESSION['expire'] = time() + $this->time;
+            $_SESSION['expire'] = time() + ($this->minutes * 60);
             Helper::home();
         } else {
             echo "Nope";
@@ -148,7 +143,7 @@ class Auth extends Model {
             $this->expired = true;
             $this->logout();
         } else {
-            $_SESSION['expire'] = time() + $this->time;
+            $_SESSION['expire'] = time() + ($this->minutes * 60);
         }
     }
 }

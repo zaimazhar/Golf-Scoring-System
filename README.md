@@ -16,32 +16,38 @@ Having an official and crucial tournaments require a massive workloads to handle
 
 ## Issues
 - Score Relationships (How to Store Score Properly)
-  - Refer to ERD
+  - Refer to ERD (Solution: Add both Stroke and Stableford scores to avoid double tables inclusion)
 
 ## TO-DOs
 - Frontend
-  - Login Page (10%)
-  - Organizer Dashboard (10%)
-  - Admin Dashboard
-  - Public View
+  - Login Page (100%)
+  - Organizer Dashboard (80%)
+  - Admin Dashboard (100%)
+  - Public View (50%)
 
 - Backend
   - Configure server environment
     - Build Tables
       - Users
         - Privilege Users (100%)
-        - Players
-      - Competition
+      - Participants (Player & Team) (100%)
+      - Competition (100%)
+        - Venue (100%)
+          - Properties (100%)
+          - Par (100%)
+          - Format (100%)
+            - Stableford (100%)
+      - Score
   
   - Build all packages
     - Authentication (100%)
     - Authorization (100%)
     - ~~CSRF (10%)~~ (__Abandoned__)
-    - APIs (?)
-    - Model Class (60%)
-    - -Query Builder-
+    - ~~APIs~~ (__Dropped__)
+    - Model Class (85%)
+    - ~~Query Builder~~
     - ~~Seeder~~
-    - Score Computation
+    - Score Computation (Include 'Stableford' into 'score' table)
 
 ## Stack
 

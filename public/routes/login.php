@@ -3,12 +3,9 @@
 include_once "../ServiceProvider.php";
 
 use php\logic\Auth;
-use php\logic\Sessions;
 use php\misc\Helper;
 
 $auth = new Auth;
-
-Sessions::old("get");
 
 $post = Helper::route("posts.user_login");
 

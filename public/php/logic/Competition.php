@@ -1,17 +1,22 @@
 <?php
 
+namespace php\logic;
+
+use php\database\Model;
 use php\logic\Auth;
 
-class Competition {
-    private $auth;
+class Competition extends Model {
+    private $model;
 
     public function __construct() {
-        $this->auth = new Auth;
+        parent::__construct();    
     }
 
-    public function createCompetition(string $name) {
-        if($this->auth->checkPrivilege("superadmin")) {
-            
-        }
+    public function showAllCompetition() {
+        return $this->all("competition")->getAll();
+    }
+
+    public function getCurrentCompetition(int $cid) {
+        return $this->find("competition", $cid)->get();
     }
 }
