@@ -11,7 +11,7 @@ $vid = $_GET['vid'];
 $venue = new Competition;
 
 $venue_data = $venue->find("venue", $vid)->get();
-$venue_players = $venue->getAllVenuePlayer($vid);
+$venue_players = $venue->getAllVenuePlayer($venue_data['venue_type'], $vid);
 
 ?>
 
@@ -32,8 +32,8 @@ $venue_players = $venue->getAllVenuePlayer($vid);
         </tr>
         <?php foreach($venue_players as $data) { ?>
             <tr>
-                <td><?= $data['name'] ?></td>
-                <td><?= $data['sum'] ?></td>
+                <td><?= $data['name'] . " (<strong>handicap</strong>: " . $data['handicap'] ?>)</td>
+                <td><?= ($data['sum']) ?></td>
             </tr>
         <?php } ?>
     </table>

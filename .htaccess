@@ -1,5 +1,4 @@
-# JANGAN DELETE DAHHHH, DAH ELOK DAH MASUK PUBLIC DAN BUANG EXTENSION !!!!!
-RewriteEngine On
+RewriteEngine on
 DirectoryIndex index.php
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.php -f

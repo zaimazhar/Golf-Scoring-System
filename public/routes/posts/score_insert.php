@@ -32,9 +32,9 @@ $query = "";
 for($i = 0; $i < count($_POST['hole']); $i++) {
     $par_val = $par[$i];
     $par_hole = $post_hole[$i];
-    if(!empty($par_hole && !empty($par_val))) {
+    if(!empty($par_hole) && (strlen($par_val) > 0)) {
         $par_point = $auth->select("stableford", ["point"], ["venue_id" => $vid, "par" => $par_val])->get();
-        array_push($score, [$vid, $pid, $par_hole,  $par_val, $par_point['point'] ?? 0]);
+        array_push($score, [$vid, $pid, $par_hole, $par_val, $par_point['point'] ?? 0]);
     }
 }
 
