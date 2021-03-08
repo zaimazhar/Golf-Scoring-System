@@ -9,7 +9,7 @@ use PDO;
 class Model extends pgConnection {
     private $currStmt;
     private $currQuery;
-    private $arr_data = [];
+    private $data = [];
     private $count = [];
 
     /**
@@ -148,6 +148,13 @@ class Model extends pgConnection {
     }
 
     /**
+     * Optimize current query
+     */
+    private function optimizeQuery() {
+        
+    }
+
+    /**
      * Execute the given query along with the data
      */
     private function executeQuery(string $query = null, array $data = null) {
@@ -173,5 +180,9 @@ class Model extends pgConnection {
             echo "Not here, suckers";
             exit;
         }
+    }
+
+    protected function rawSQL(string $query, array $data) {
+        return $this->executeQuery($query, $data);
     }
 }
