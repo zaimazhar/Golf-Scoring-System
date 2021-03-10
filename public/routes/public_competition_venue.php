@@ -33,7 +33,7 @@ $venue_players = $venue->getAllVenuePlayer($venue_data['venue_format'], $vid);
         <?php foreach($venue_players as $data) { ?>
             <tr>
                 <td><?= $data['name'] . " (<strong>handicap</strong>: " . $data['handicap'] ?>)</td>
-                <td><?= ($data['sum']) ?></td>
+                <td><?= ($data['sum'] - $data['handicap']) ?></td>
             </tr>
         <?php } ?>
     </table>

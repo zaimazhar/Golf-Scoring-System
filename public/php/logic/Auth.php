@@ -65,7 +65,7 @@ class Auth extends Model {
             }
 
             $href = array(
-                "compute" => Helper::route("compute.compute"),
+                "compute" => Helper::route("compute"),
                 $dashboard => $href,
                 "logout" => Helper::route("posts.user_logout"),
             );
