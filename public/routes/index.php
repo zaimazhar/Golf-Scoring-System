@@ -12,12 +12,9 @@ $competition = new Competition;
 
 $comp_id = Helper::route("public_competition");
 
-if(isset($_SESSION['expired'])) {
-    Sessions::old("expired");
-} else {
-    Sessions::old("get");
-    Sessions::old("error");
-}
+Sessions::old("expired");
+Sessions::old("get");
+Sessions::old("error");
 
 ?>
 

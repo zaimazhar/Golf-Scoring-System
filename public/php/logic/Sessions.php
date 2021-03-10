@@ -27,7 +27,7 @@ class Sessions {
             self::start();
         
         if(isset($_SESSION[$name])) {
-            echo $_SESSION[$name];
+            echo $_SESSION[$name] . "<br>";
             unset($_SESSION[$name]);
         }
     }
