@@ -11,7 +11,7 @@ $vid = $_GET['vid'];
 $venue = new Competition;
 
 $venue_data = $venue->find("venue", $vid)->get();
-$venue_players = $venue->getAllVenuePlayer($venue_data['venue_type'], $vid);
+$venue_players = $venue->getAllVenuePlayer($venue_data['venue_format'], $vid);
 
 ?>
 

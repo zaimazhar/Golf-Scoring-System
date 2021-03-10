@@ -12,9 +12,9 @@ class Competition extends Model {
 
     public function getAllVenuePlayer(string $type, int $vid) {
         if($type === "stroke") {
-            return $this->rawSQL("select p.name, s.sum, p.handicap from participant p inner join (select player_id, sum(par) from score where venue_id=? group by player_id) s on p.id=s.player_id;", [$vid])->getAll();
+            return $this->rawSQL("select p.name, s.sum, p.handicap from participant p inner join (select player_id, sum(par) from score where venue_id=? group by player_id) s on p.id=s.player_id", [$vid])->getAll();
         } else {
-            return $this->rawSQL("select p.name, s.sum, p.handicap from participant p inner join (select player_id, sum(sf_point) from score where venue_id=? group by player_id) s on p.id=s.player_id;", [$vid])->getAll();
+            return $this->rawSQL("select p.name, s.sum, p.handicap from participant p inner join (select player_id, sum(sf_point) from score where venue_id=? group by player_id) s on p.id=s.player_id", [$vid])->getAll();
         }
     }
 

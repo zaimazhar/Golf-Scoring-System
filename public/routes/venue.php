@@ -60,10 +60,11 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
         <p>No data found for the requested venue.</p>
     <?php } ?>
     <br><br>
+    <h2>Add New Participant</h2>
     <form id="form_venue" action="<?= $addPlayer ?>" method="post">
         <div>
-            <input type="text" name="player_name[]">
-            <input type="number" name="player_handicap[]">
+            <input type="text" name="player_name[]" placeholder="Name">
+            <input type="number" name="player_handicap[]" placeholder="Handicap">
         </div>
     </form>
     <button type="submit" form="form_venue">Submit</button>

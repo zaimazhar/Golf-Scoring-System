@@ -7,8 +7,10 @@ column.addEventListener("click", function() {
     let input_player_handicap = document.createElement("input")
     input_player_name.setAttribute("type", "text")
     input_player_name.setAttribute("name", "player_name[]")
+    input_player_name.placeholder = "Name"
     input_player_handicap.setAttribute("type", "number")
     input_player_handicap.setAttribute("name", "player_handicap[]")
+    input_player_handicap.placeholder = "Handicap"
     div.appendChild(input_player_name)
     input_player_name.insertAdjacentElement("afterend", input_player_handicap)
     let last_div = form_venue.lastElementChild

@@ -86,19 +86,26 @@ class Model extends pgConnection {
     /**
      * UPDATE Query
      */
-    public function update(string $table, array $datas) {
-        if(!array_key_exists("id", $datas)) return false;
+    public function update(string $table, array $datas, array $wheres) {
+        // if(!array_key_exists("id", $datas)) return false;
 
-        $filterId = array_filter($datas, function($id) {
-            return $id === "id";
-        }, ARRAY_FILTER_USE_KEY);
+        // $filterId = array_filter($datas, function($id) {
+        //     return $id === "id";
+        // }, ARRAY_FILTER_USE_KEY);
+        $cb = function($val) {
+            return "$val=? AND ";
+        };
 
-        $filteredArr = array_diff_key($datas, $filterId);
+        $col_check = substr(implode("", array_map($cb, array_keys($wheres))), 0, -5);
+
         $col = implode(",", array_map(function($key, $val) {
             return "$key='$val'";
-        }, array_keys($filteredArr), array_values($filteredArr)));
-
-        return $this->executeQuery("UPDATE $table SET $col WHERE id=?", array_values($filterId));
+        }, array_keys($datas), array_values($datas)));
+        // $filteredArr = array_diff_key($datas, $filterId);
+        // $col = implode(",", array_map(function($key, $val) {
+        //     return "$key='$val'";
+        // }, array_keys($filteredArr), array_values($filteredArr)));
+        return $this->executeQuery("UPDATE $table SET $col WHERE $col_check", array_values($wheres));
     }
 
     /**
@@ -177,11 +184,14 @@ class Model extends pgConnection {
      */
     private function sqlInjectionPreventor(array $queryCheck) {
         if(Helper::checkThisInString(";", implode("", $queryCheck)) !== false) {
-            echo "Not here, suckers";
+            echo "SQL Injection!!";
             exit;
         }
     }
 
+    /**
+     * Insert RAW SQL
+     */
     protected function rawSQL(string $query, array $data) {
         return $this->executeQuery($query, $data);
     }

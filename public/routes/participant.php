@@ -15,12 +15,13 @@ $vid = $_GET['vid'];
 $keep_get_score = [];
 
 $postScore = Helper::route("posts.score_insert?vid=$vid&pid=$pid");
+$editScore = Helper::route("participant_edit");
 
-$venue_max_hole = $auth->select("venue", ["venue_holes"], ["id" => $vid])->get();
+$venue = $auth->select("venue", ["venue_holes"], ["id" => $vid])->get();
 $participant = $auth->select("participant", ["name"], ["id" => $pid])->get();
 $score = $auth->select("score", ["hole", "par"], ["venue_id" => $vid, "player_id" => $pid], 'hole');
 
-$venue_hole = range(1, $venue_max_hole['venue_holes']);
+$venue_hole = range(1, $venue['venue_holes']);
 $holes = $score->getAll();
 $hole_filled = $score->count();
 
@@ -30,7 +31,7 @@ foreach($holes as $get_score) {
 
 $hole_diff = array_diff($venue_hole, $keep_get_score);
 
-$unfilled_hole = $venue_max_hole['venue_holes'] - $hole_filled++;
+$unfilled_hole = $venue['venue_holes'] - $hole_filled++;
 echo "<br>";
 
 ?>
@@ -43,7 +44,7 @@ echo "<br>";
 </head>
 <body>
     <?php foreach($holes as $hole) { ?>
-        <span>Hole <?= $hole['hole'] ?> with par of <?= $hole['par'] ?> </span><a href="">Edit</a><br>
+        <span>Hole <?= $hole['hole'] ?> with par of <?= $hole['par'] ?> </span><a href="<?= $editScore . "?vid=$vid&pid=$pid&hole=" . $hole['hole'] ?>">Edit</a><br>
     <?php } ?>
     <br><br>
     <?php if($unfilled_hole > 0) { ?>
