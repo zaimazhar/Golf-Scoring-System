@@ -31,7 +31,7 @@ foreach($holes as $get_score) {
 
 $hole_diff = array_diff($venue_hole, $keep_get_score);
 
-$unfilled_hole = $venue['venue_holes'] - $hole_filled++;
+$unfilled_hole = $venue['venue_holes'] - $hole_filled;
 echo "<br>";
 
 ?>
@@ -43,6 +43,7 @@ echo "<br>";
     <title><?= $participant['name'] ?></title>
 </head>
 <body>
+    <?php include_once("./components/navbar_competition.php") ?>
     <?php foreach($holes as $hole) { ?>
         <span>Hole <?= $hole['hole'] ?> with par of <?= $hole['par'] ?> </span><a href="<?= $editScore . "?vid=$vid&pid=$pid&hole=" . $hole['hole'] ?>">Edit</a><br>
     <?php } ?>

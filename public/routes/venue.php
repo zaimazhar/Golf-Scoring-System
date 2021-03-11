@@ -29,8 +29,10 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Venue</title>
+    <?php include_once("./components/head.php") ?>
 </head>
 <body>
+    <?php include_once("./components/navbar_competition.php") ?>
     <?php Sessions::old("venue_update"); ?>
     <?php if( $data )  { ?>
     <form action="<?= $editVenue ?>" method="post">

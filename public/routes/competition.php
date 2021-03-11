@@ -49,8 +49,10 @@ if($venue_count >= 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Venue Formats</title>
+    <?php include_once("./components/head.php") ?>
 </head>
 <body>
+    <?php include_once("./components/navbar.php") ?>
     <?php if($venue_count >= 0) { ?>
         <?php foreach($venue_get as $venue_click) { ?>
             <?php $vid = $venue_click['id']; $vname = $venue_click['venue_name']; ?>
