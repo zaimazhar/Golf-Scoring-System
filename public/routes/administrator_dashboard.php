@@ -27,10 +27,13 @@ foreach($getCompetition as $competition) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include_once "./components/head.php" ?>
+    <?php include_once "./components/admin_head.php" ?>
     <title>Administrator - Dashboard</title>
 </head>
 <body>
+    <div class="wrapper">
+        <?php include_once("./components/navbar_admin.php") ?>
+    </div>
     <?php include_once "./components/navbar.php" ?>
     <?php Sessions::old("created_venue"); ?>
     <?php Sessions::old("error_venue"); ?>
@@ -38,5 +41,6 @@ foreach($getCompetition as $competition) {
     <br>
     <br>
     <?= $gen_link ?>
+    <?php include_once("./components/admin_footer.php") ?>
 </body>
 </html>

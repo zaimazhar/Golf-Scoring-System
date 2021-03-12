@@ -129,7 +129,10 @@ class Auth extends Model {
             $_SESSION['name'] = $this->user['user_name'];
             $_SESSION['permission'] = $this->user['user_permission'];
             $_SESSION['expire'] = time() + ($this->minutes * 60);
-            Helper::home();
+            if($_SESSION['permission'] === "superadmin")
+                Helper::redirect("organizer_dashboard");
+            else
+                Helper::redirect("administrator_dashboard");
         } else {
             echo "Nope";
         }
