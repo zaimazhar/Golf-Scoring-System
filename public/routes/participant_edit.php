@@ -32,21 +32,45 @@ $player_data = $auth->select("score", ["par", "sf_point", "player_id"], ["player
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editing Score</title>
-    <?php include_once("./components/head.php"); ?>
+    <?php include_once("./components/admin_head.php"); ?>
 </head>
 <body>
-    <?php foreach($stableford as $ref) { ?>
-        <p><span>Par <?= $ref['par'] ?></span>: <span><?= $ref['point'] ?></span></p>
-    <?php } ?>
-    <form action="<?= $postEdit ?>" method="post">
-        <label for="par">Editing Hole <?= $hole ?></label><br>
-        <input type="hidden" name="venue" value="<?= $vid ?>">
-        <input type="hidden" name="hole" value="<?= $hole ?>">
-        <input type="number" id="par" name="par" value="<?= $player_data['par'] ?>">
-        <?php if($checkFormat === "stroke") { ?>
-            <span><?= $player_data['sf_point'] ?></span>
-        <?php } ?>
-        <button type="submit">Submit</button>
-    </form>
+    <div id="wrapper">
+        <?php include_once("./components/navbar_admin.php") ?>
+        <div class="content-page">
+            <div class="content">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <h4 class="page-title">Editing hole <?= $hole ?></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+                            <h4 class="header-title mb-3">Hole 1</h4>
+                            <?php foreach($stableford as $ref) { ?>
+                                <p><span>Par <?= $ref['par'] ?></span>: <span><?= $ref['point'] ?></span></p>
+                            <?php } ?>
+                            <form action="<?= $postEdit ?>" method="post">
+                                <div class="form-group">
+                                    <input type="hidden" name="player" value="<?= $pid ?>">
+                                    <input type="hidden" name="venue" value="<?= $vid ?>">
+                                    <input type="hidden" name="hole" value="<?= $hole ?>">
+                                    <input type="number" class="form-control" id="par" name="par" value="<?= $player_data['par'] ?>">
+                                    <?php if($checkFormat === "stroke") { ?>
+                                        <span><?= $player_data['sf_point'] ?></span>
+                                    <?php } ?>
+                                    <button class="btn btn-block mt-3 btn-success" type="submit">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php include_once("./components/admin_footer.php") ?>
 </body>
 </html>

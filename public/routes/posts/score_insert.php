@@ -4,6 +4,7 @@ include_once("../../ServiceProvider.php");
 
 use php\database\Model;
 use php\logic\Auth;
+use php\logic\Sessions;
 use php\misc\Helper;
 
 $auth = new Auth;
@@ -41,9 +42,11 @@ for($i = 0; $i < count($_POST['hole']); $i++) {
 $inserScore = $auth->createMultiple("score", ["venue_id", "player_id", "hole", "par", "sf_point"], $score);
 
 if($inserScore) {
-    echo "Berjaya";
+    Sessions::setSession("par_insert", "Successfully inserted par");
+    Helper::redirect('participant');
 } else {
-    echo "Error";
+    Sessions::setSession("par_insert", "Failed to insert par");
+    Helper::redirect('participant');
 }
 
 ?>

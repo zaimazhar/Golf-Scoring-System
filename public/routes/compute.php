@@ -7,9 +7,8 @@ use php\misc\Helper;
 
 $auth = new Auth;
 
-if($auth->user()) {
-    echo $auth->id();
-}
+$auth->check();
+$auth->checkPrivilege(["superadmin", "admin"]);
 
 $competitionRoute = Helper::route("competition_venue");
 $allCompetition = $auth->all("competition")->getAll();
@@ -19,12 +18,49 @@ $allCompetition = $auth->all("competition")->getAll();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include_once "./components/head.php" ?>
+    <?php include_once "./components/admin_head.php" ?>
+    <title>Compute Score</title>
 </head>
 <body>
-    <?php include_once "./components/navbar.php" ?><br>
-    <?php foreach($allCompetition as $competition) { ?>
-        <a href="<?= "$competitionRoute?cid=" . $competition['id'] ?>"><?= $competition['competition_name'] ?></a><br>
-    <?php } ?>
+    <div id="wrapper">
+        <?php include_once "./components/navbar_admin.php" ?>
+        <div class="content-page">
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <h4 class="page-title">Pick Competition to Compute</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-box">
+                                <table class="table table-bordered table-nowrap mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Competition</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach($allCompetition as $competition) { ?>
+                                            <tr>
+                                                <td>
+                                                    <a href="<?= $competitionRoute . "?cid=" . $competition['id'] ?>"><?= $competition['competition_name'] ?></a>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <?php include_once("./components/admin_footer.php") ?>
 </body>
 </html>

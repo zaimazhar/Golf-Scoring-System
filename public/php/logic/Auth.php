@@ -72,7 +72,7 @@ class Auth extends Model {
             
             echo Helper::generateLi($href);
         } else {
-            echo "<a href='/login'>Login</a>";
+            echo "<li><a href='/login'>Login</a></li>";
         }
     }
 

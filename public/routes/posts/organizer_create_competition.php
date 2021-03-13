@@ -8,7 +8,7 @@ use php\misc\Helper;
 $auth = new Auth;
 
 $auth->check();
-$auth->checkPrivilege(["superadmin", "admin"]);
+$auth->checkPrivilege(["superadmin"]);
 
 if(Helper::checkRequest("GET")) {
     Helper::denyAccess();
@@ -17,4 +17,9 @@ if(Helper::checkRequest("GET")) {
         "competition_name" => Helper::SanitizeString($_POST['comp_name']),
         "num_of_venue" => Helper::SanitizeNumber($_POST['no_of_venue']),
     ]);
+
+    if($auth->permission() === "superadmin")
+        Helper::redirect("organizer_dashboard");
+    else
+        Helper::redirect("administrator_dashboard");
 }

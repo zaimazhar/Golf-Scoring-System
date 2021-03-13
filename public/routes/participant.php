@@ -3,6 +3,7 @@
 include_once("../ServiceProvider.php");
 
 use php\logic\Auth;
+use php\logic\Sessions;
 use php\misc\Helper;
 
 $auth = new Auth;
@@ -32,30 +33,91 @@ foreach($holes as $get_score) {
 $hole_diff = array_diff($venue_hole, $keep_get_score);
 
 $unfilled_hole = $venue['venue_holes'] - $hole_filled;
-echo "<br>";
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <?php include_once("./components/head.php") ?>
+    <?php include_once("./components/admin_head.php") ?>
     <title><?= $participant['name'] ?></title>
 </head>
 <body>
-    <?php include_once("./components/navbar_competition.php") ?>
-    <?php foreach($holes as $hole) { ?>
-        <span>Hole <?= $hole['hole'] ?> with par of <?= $hole['par'] ?> </span><a href="<?= $editScore . "?vid=$vid&pid=$pid&hole=" . $hole['hole'] ?>">Edit</a><br>
-    <?php } ?>
-    <br><br>
-    <?php if($unfilled_hole > 0) { ?>
-    <form action="<?= $postScore ?>" method="post">
-        <?php foreach($hole_diff as $diff) { ?>
-            <input type="hidden" name="hole[]" value="<?= $diff ?>">
-            <label for="hole<?= $diff ?>">Hole <?= $diff?></label><input type="number" style="margin-left: 20px;" placeholder="Par" id="hole<?= $diff ?>" name="par[]"><br>
-        <?php } ?>
-        <button type="submit">Submit</button>
-    <?php } ?>
-    </form>
+    <div id="wrapper">
+        <?php include_once("./components/navbar_admin.php") ?>
+        <div class="content-page">
+            <div class="content">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <h4 class="page-title">Participant: <?= $participant['name'] ?></h4>
+                        </div>
+                    </div>
+                </div>
+                <h4 class="mb-4"><?php Sessions::old("par_insert") ?></h4>
+                <h4 class="mb-4"><?php Sessions::old("par_edit") ?></h4>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card-box">
+                            <h4 class="header-title mb-4">Filled Holes</h4>
+                            <table class="table table-bordered table-nowrap mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Hole</th>
+                                        <th>Par</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($holes as $hole) { ?>
+                                        <tr>
+                                            <td><?= $hole['hole'] ?></td>
+                                            <td><?= $hole['par'] ?></td>
+                                            <td><a class="btn btn-primary" href="<?= $editScore . "?vid=$vid&pid=$pid&hole=" . $hole['hole'] ?>">Edit</a></td>
+                                        </tr>
+                                    <?php } ?>
+
+                                </tbody>    
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card-box">
+                            <h4 class="header-title mb-4">Unfilled Holes</h4>
+                            <table class="table table-bordered table-nowrap mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Unfilled Hole</th>
+                                        <th>Par</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if($unfilled_hole > 0) { ?>
+                                    <form id="par" action="<?= $postScore ?>" method="post">
+                                        <?php foreach($hole_diff as $diff) { ?>
+                                            <tr>
+                                                <td>
+                                                    <?= $diff ?>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <input type="hidden" name="hole[]" value="<?= $diff ?>">
+                                                        <input type="number" class="form-control" placeholder="Par" id="hole<?= $diff ?>" name="par[]">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
+                                    </form>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                            <button type="submit" form="par" class="btn btn-success mt-3">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php include_once("./components/admin_footer.php") ?>
 </body>
 </html>

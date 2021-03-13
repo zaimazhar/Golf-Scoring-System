@@ -23,7 +23,7 @@ Class Helper {
      * Redirect to homepage
      */
     static public function home($get_data = null) {
-        header("Location: /golf");
+        header("Location: /golf.php");
     }
 
     /**

@@ -49,34 +49,81 @@ if($venue_count >= 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Venue Formats</title>
-    <?php include_once("./components/head.php") ?>
+    <?php include_once("./components/admin_head.php") ?>
 </head>
 <body>
-    <?php include_once("./components/navbar.php") ?>
-    <?php if($venue_count >= 0) { ?>
-        <?php foreach($venue_get as $venue_click) { ?>
-            <?php $vid = $venue_click['id']; $vname = $venue_click['venue_name']; ?>
-                <a href=" <?= "$venueLink?cid=$cid&vid=$vid" ?>"><?= $vname ?></a>
-                <button onclick="venueDeleteConfirmation('<?= $vname ?>',<?= $vid ?>)">Delete</button>
-                <br>
-        <?php } ?>
-    <?php if($checkCount !== 0) { ?>
-    <form action="<?= $venuePost ?>" method="post">
-        <input type="hidden" name="cid" value="<?= $cid ?>">
-        <?php for($i = 0; $i < $checkCount; $i++) { ?>
-            <span>Venue <?= $count ?>: </span><input type='text' name='venue[]'>
-            <select name='venue_type[]'>
-                <option value='solo' selected>Solo</option>
-                <option value='team'>Team</option>
-            </select><br>
-            <?php $count++; ?>
-        <?php } ?>
-        <button type="submit">Submit</button>
-    </form>
-        <?php } ?>
-    <?php } else {?>
-        <p>Error getting all the venues.</p>
-    <?php } ?>
-    <?php include_once("./components/footer.php"); ?>
+    <div id="wrapper">
+        <?php include_once("./components/navbar_admin.php") ?>
+        <div class="content-page">
+            <div class="content">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box">
+                            <h4 class="page-title">Tournament: <?= $competition_data['competition_name'] ?></h4>
+                        </div>
+                    </div>
+                </div> 
+                <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card-box">
+                                <h4 class="header-title mb-3"></h4>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-nowrap mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php if($venue_count >= 0) { ?>
+                                        <?php foreach($venue_get as $venue_click) { ?>
+                                        <?php $vid = $venue_click['id']; $vname = $venue_click['venue_name']; ?>
+                                        <tr>
+                                            <th class="text-muted"><?= $vname ?></th>
+                                            <td>
+                                                <a class="btn btn-primary" href=" <?= "$venueLink?cid=$cid&vid=$vid" ?>">View</a>
+                                                <button class="btn btn-danger" onclick="venueDeleteConfirmation('<?= $vname ?>',<?= $vid ?>)">Delete</button>
+                                            </td>
+                                        </tr>                
+                                        <?php } ?>
+                                        <?php if($checkCount !== 0) { ?>
+                                        <form id="venue_form" action="<?= $venuePost ?>" method="post">
+                                        <?php for($i = 0; $i < $checkCount; $i++) { ?>
+                                        <tr>
+                                            <td>
+                                                    <div class="form-group">
+                                                        <label for="venue_name">Venue Name</label>
+                                                        <input type='text' name='venue[]' class="form-control" id="venue_name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="venue_type">Venue Type</label>
+                                                        <select class="form-control" name="venue_type[]" id="venue_type">
+                                                            <option value="solo">Solo</option>
+                                                            <option value="team">Team</option>
+                                                        </select>
+                                                    </div>
+                                                    <?php } ?>
+                                                </td>
+                                            </tr>
+                                            <input type="hidden" name="cid" value="<?= $cid ?>">
+                                        </form>
+                                        <?php } ?>
+                                        <?php } else {?>
+                                            <p>Error getting all the venues.</p>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table>
+                                    <?php if($checkCount !== 0) { ?>
+                                        <button type="submit" form="venue_form" class="btn btn-success mt-3">Submit</button>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div><!-- end col-->
+                    </div>
+            </div>
+        </div>
+    </div>
+    <?php include_once("./components/admin_footer.php"); ?>
 </body>
 </html>

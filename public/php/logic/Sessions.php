@@ -39,7 +39,9 @@ class Sessions {
      * param $data any
      */
     static public function setSession(string $name, $data) {
-        self::start();
+        if(self::check(PHP_SESSION_NONE))
+            self::start();
+            
         $_SESSION[$name] = $data;
     }
 
