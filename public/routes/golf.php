@@ -16,11 +16,11 @@ $comp_id = Helper::route("public_competition");
 
 <DOCTYPE html>
 <html lang="en">
-<head>!
+<head>
     <?php include_once "components/head.php" ?>
     <title>Home | Golf Scoring System</title>
 </head>
-<body>
+<body class="is-preload">
     <div id="wrapper">
         <div id="main">
             <div class="inner">
@@ -39,6 +39,7 @@ $comp_id = Helper::route("public_competition");
                         <?php Sessions::old("expired"); ?>
                         <?php Sessions::old("get"); ?>
                         <?php Sessions::old("error"); ?>
+                        <br>
                         <table>
                             <tr>
                                 <th>Competition</th>

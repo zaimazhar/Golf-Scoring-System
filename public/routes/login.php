@@ -37,9 +37,9 @@ $post = Helper::route("posts.user_login");
 					</header>
 					<div class="features">
                     <form action="<?= $post ?>" method="post">
-                        <label for="email">Email</label><br>
+                        <label for="email">Email</label>
                         <input type="text" name="user_email" id="email"><br>
-                        <label for="">Password</label><br>
+                        <label for="password">Password</label>
                         <input type="password" name="user_password" id="password"><br><br>
                         <button type="submit">Login</button>
                     </form>

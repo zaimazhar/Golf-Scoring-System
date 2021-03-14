@@ -1,8 +1,6 @@
-let column = document.querySelector("#column")
-
 let url = "http://golf_score_system.io"
 
-column.addEventListener("click", function() {
+function addColumn() {
     let form_venue = document.querySelector("#form_venue")
     let div = document.createElement("div")
     let input_player_name = document.createElement("input")
@@ -24,7 +22,31 @@ column.addEventListener("click", function() {
     input_player_name.insertAdjacentElement("afterend", input_player_handicap)
     let last_div = form_venue.lastElementChild
     last_div.insertAdjacentElement("afterend", div)
-})
+}
+
+function stableford() {
+    let form_stableford = document.querySelector("#sf")
+    let div = document.createElement("div")
+    let input_par = document.createElement("input")
+    let input_point = document.createElement("input")
+    div.classList.add("form-inline")
+    input_par.setAttribute("type", "text")
+    input_par.classList.add("form-control")
+    input_par.classList.add("mt-3")
+    input_par.classList.add("mr-3")
+    input_par.setAttribute("name", "par[]")
+    input_par.placeholder = "Par"
+    input_point.setAttribute("type", "number")
+    input_point.setAttribute("name", "point[]")
+    input_point.classList.add("form-control")
+    input_point.classList.add("mt-3")
+    input_point.classList.add("mr-3")
+    input_point.placeholder = "Point"
+    div.appendChild(input_par)
+    input_par.insertAdjacentElement("afterend", input_point)
+    let last_div = form_stableford.lastElementChild
+    last_div.insertAdjacentElement("afterend", div)
+}
 
 function venueDeleteConfirmation(vname, vid) {
     let vname_store = prompt(`Type '${vname}' to delete`)

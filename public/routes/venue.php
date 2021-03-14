@@ -102,7 +102,7 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
                             </form>
                             <div class="my-3">
                                 <button class="btn btn-success" type="submit" form="form_venue">Submit</button>
-                                <button class="btn btn-primary" id="column">Add Columns</button>
+                                <button class="btn btn-primary" onclick="addColumn()">Add Columns</button>
                             </div>
                         </div>
                     </div>

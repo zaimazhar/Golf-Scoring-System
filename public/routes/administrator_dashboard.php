@@ -42,8 +42,10 @@ foreach($getCompetition as $competition) {
         <?php include_once("./components/navbar_admin.php") ?>
         <div class="content-page">
             <div class="content">
+                <br>
                 <?php Sessions::old("created_venue"); ?>
                 <?php Sessions::old("error_venue"); ?>
+                <br>
                 <!-- Start Content-->
                 <div class="container-fluid">
                     <!-- start page title -->
