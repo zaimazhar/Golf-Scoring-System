@@ -69,6 +69,27 @@ function venueDeleteConfirmation(vname, vid) {
     }
 }
 
+function deletePar(cname, id) {
+    let deletePar = prompt(`Type '${cname}' to delete`)
+
+    if(deletePar === cname) {
+        let deleteForm = new XMLHttpRequest()
+
+        deleteForm.open("POST", `${url}/posts/admins_delete_par`)
+        deleteForm.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+        deleteForm.onreadystatechange = function() {
+            if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                let dataRespond = deleteForm.response
+                setTimeout(function() { location.reload() }, 1000)
+                alert(`Successfully deleted par for ${dataRespond}`)
+            }
+        }
+        deleteForm.send(`id=${id}&cname=${cname}`)
+    } else {
+        console.log("Wrong")
+    }
+}
+
 function participantDeleteConfirmation(pname, pid) {
     let pname_store = prompt(`Type '${pname}' to delete`)
 

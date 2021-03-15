@@ -13,9 +13,10 @@ $auth->checkPrivilege(["superadmin", "admin"]);
 
 $pid = $_GET['pid'];
 $vid = $_GET['vid'];
+$cid = $_GET['cid'];
 $keep_get_score = [];
 
-$postScore = Helper::route("posts.score_insert?vid=$vid&pid=$pid");
+$postScore = Helper::route("posts.score_insert?vid=$vid&pid=$pid&cid=$cid");
 $editScore = Helper::route("participant_edit");
 
 $venue = $auth->select("venue", ["venue_holes"], ["id" => $vid])->get();
@@ -60,7 +61,7 @@ $unfilled_hole = $venue['venue_holes'] - $hole_filled;
                     <div class="col-6">
                         <div class="card-box">
                             <h4 class="header-title mb-4">Filled Holes</h4>
-                            <table class="table table-bordered table-nowrap mb-0">
+                            <table class="text-center font-weight-bold table table-bordered table-nowrap mb-0">
                                 <thead>
                                     <tr>
                                         <th>Hole</th>
@@ -73,7 +74,7 @@ $unfilled_hole = $venue['venue_holes'] - $hole_filled;
                                         <tr>
                                             <td><?= $hole['hole'] ?></td>
                                             <td><?= $hole['par'] ?></td>
-                                            <td><a class="btn btn-primary" href="<?= $editScore . "?vid=$vid&pid=$pid&hole=" . $hole['hole'] ?>">Edit</a></td>
+                                            <td><a class="btn btn-primary" href="<?= $editScore . "?vid=$vid&cid=$cid&pid=$pid&hole=" . $hole['hole'] ?>">Edit</a></td>
                                         </tr>
                                     <?php } ?>
 
@@ -84,7 +85,7 @@ $unfilled_hole = $venue['venue_holes'] - $hole_filled;
                     <div class="col-6">
                         <div class="card-box">
                             <h4 class="header-title mb-4">Unfilled Holes</h4>
-                            <table class="table table-bordered table-nowrap mb-0">
+                            <table class=" text-center table table-bordered table-nowrap mb-0">
                                 <thead>
                                     <tr>
                                         <th>Unfilled Hole</th>
@@ -111,7 +112,9 @@ $unfilled_hole = $venue['venue_holes'] - $hole_filled;
                                     <?php } ?>
                                 </tbody>
                             </table>
+                            <?php if($unfilled_hole != 0) { ?>
                             <button type="submit" form="par" class="btn btn-success mt-3">Submit</button>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

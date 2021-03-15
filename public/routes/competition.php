@@ -134,7 +134,8 @@ $sfLink = Helper::route("posts.stableford_insert");
                                                 <div class="form-inline">
                                                     <input disabled type="number" placeholder="Par" class="form-control mt-3 mr-3"  value="<?= $point['par'] ?>">
                                                     <input disabled type="number" placeholder="Point" class="form-control mt-3 mr-3" value="<?= $point['point'] ?>">
-                                                    <a href="<?= "$stablefordUpdate?cid=$cid&id=" . $point['id'] ?>">Edit</a>
+                                                    <a class="btn btn-secondary mt-3 mr-1" href="<?= "$stablefordUpdate?cid=$cid&id=" . $point['id'] ?>">Edit</a>
+                                                    <button type="button" onclick="deletePar('<?= $competition_data['competition_name'] ?>', <?= $point['id'] ?>)" class="btn btn-danger mt-3 mr-3">Delete</button>
                                                 </div>
                                                 <?php } ?>
                                             <?php } else { ?>

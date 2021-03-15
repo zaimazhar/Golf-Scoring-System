@@ -59,9 +59,15 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
                                     <select class="form-control col-8" name="venue_type">
                                         <?php if($data['venue_type'] == "solo") { ?>
                                             <option value="solo" selected>Solo</option>
+                                            <option value="solo_handicap">Solo (Handicap)</option>
                                             <option value="team">Team Play</option>
-                                        <?php } else { ?>
+                                        <?php } else if($data['venue_type'] == "solo_handicap") { ?>
+                                            <option value="solo_handicap" selected>Solo (Handicap)</option>
+                                            <option value="team">Team Play</option>
+                                            <option value="solo">Solo</option>
+                                        <?php } else {?>
                                             <option value="team" selected>Team Play</option>
+                                            <option value="solo_handicap">Solo (Handicap)</option>
                                             <option value="solo">Solo</option>
                                         <?php } ?>
                                     </select>
@@ -91,7 +97,7 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
                     <?php } ?>
                     <div class="col-4 order-1">
                         <div class="card-box">
-                            <h3 class="page-title">Add New Participant (<?= ucwords($data['venue_type']) ?>)</h3>
+                            <h3 class="page-title">Add New Participant (<?php echo $data['venue_type'] == "solo_handicap" ? "Solo Handicap" : ucwords($data['venue_type']) ?>)</h3>
                             <form id="form_venue" action="<?= $addPlayer ?>" method="post">
                                 <div class="form-inline">
                                     <div class="form-group">
@@ -126,6 +132,18 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
                     </div>
                     <?php } ?>
                 </div>
+                <?php if($data['venue_type'] === "team") { ?>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+                            <h3 class="page-title">Teams</h3>
+                            <form action="" id="form_team" method="post">
+                                <input type="text" class="form-control mt-3 mr-3" name="teams[]" placeholder="Team">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <?php } else { ?>
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box">
@@ -144,7 +162,7 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
                                                 <h5><?= $participant['name'] ?></h5>
                                             </td>
                                             <td>
-                                                <a class="btn btn-primary" href="<?= Helper::route("participant?vid=$vid&pid=" . $participant['id'] ) ?>">View</a>
+                                                <a class="btn btn-primary" href="<?= Helper::route("participant?cid=$cid&vid=$vid&pid=" . $participant['id'] ) ?>">View</a>
                                                 <button class="btn btn-danger" onclick="participantDeleteConfirmation('<?= $participant['name'] ?>',<?= $participant['id'] ?>)">Delete</button>
                                             </td>
                                         </tr>
@@ -154,6 +172,7 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
                         </div>
                     </div>
                 </div>
+                <?php } ?>
             </div>
         </div>
     </div>
