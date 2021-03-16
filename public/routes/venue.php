@@ -16,6 +16,8 @@ $vid = $_GET['vid'];
 
 $editVenue = Helper::route("posts.organizer_edit_venue?cid=$cid&vid=$vid");
 $addPlayer = Helper::route("posts.organizer_add_player?cid=$cid&vid=$vid");
+$addTeam = Helper::route("posts.admins_create_team?cid=$cid&vid=$vid");
+$pickTeam = Helper::route("team_edit");
 
 $data = $auth->select("venue", null, ["id" => $vid, "competition_id" => $cid])->get();
 $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid])->getAll();
@@ -44,6 +46,7 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
                     </div>
                 </div>
                 <h3><?php Sessions::old("venue_update"); ?></h3><br>
+                <h3><?php Sessions::old("team_insert"); ?></h3><br>
                 <div class="row">
                     <?php if( $data )  { ?>
                     <div class="col-4 order-12">
@@ -116,30 +119,42 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
                     <div class="col-4 order-1">
                         <div class="card-box">
                             <h3 class="page-title">Add New Team (<?= ucwords($data['venue_type']) ?>)</h3>
-                            <form id="form_venue" action="<?= $addPlayer ?>" method="post">
+                            <form id="form_venue_team" action="<?= $addTeam ?>" method="post">
                                 <div class="form-inline">
                                     <div class="form-group">
-                                        <input class="form-control mt-3 mr-3" type="text" name="player_name[]" placeholder="Name">
-                                        <input class="form-control mt-3 mr-3" type="number" name="player_handicap[]" placeholder="Handicap">
+                                        <input class="form-control mt-3 mr-3" type="text" name="team[]" placeholder="Team">
+                                        <input class="form-control mt-3 mr-3" type="number" name="handicap[]" placeholder="Handicap">
                                     </div>
                                 </div>
                             </form>
                             <div class="my-3">
-                                <button class="btn btn-success" type="submit" form="form_venue">Submit</button>
-                                <button class="btn btn-primary" id="column">Add Columns</button>
+                                <button class="btn btn-success" type="submit" form="form_venue_team">Submit</button>
+                                <button class="btn btn-primary" onclick="team()" id="column">Add Columns</button>
                             </div>
                         </div>
                     </div>
                     <?php } ?>
                 </div>
                 <?php if($data['venue_type'] === "team") { ?>
+                <?php $getTeams = $auth->select("team", null, ["venue_id" => $vid])->getAll(); ?>
                 <div class="row">
                     <div class="col-12">
                         <div class="card-box">
                             <h3 class="page-title">Teams</h3>
-                            <form action="" id="form_team" method="post">
-                                <input type="text" class="form-control mt-3 mr-3" name="teams[]" placeholder="Team">
-                            </form>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <th>Team</th>
+                                    <th>Actions</th>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($getTeams as $team) { ?>
+                                        <tr>
+                                            <td><?= $team['team_name'] ?></td>
+                                            <td><a class="btn btn-primary" href="<?= "$pickTeam?tid=" . $team['id'] ?>">View</a></td>
+                                        </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

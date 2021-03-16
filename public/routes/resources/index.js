@@ -48,6 +48,30 @@ function stableford() {
     last_div.insertAdjacentElement("afterend", div)
 }
 
+function team() {
+    let form_team = document.querySelector("#form_venue_team")
+    let div = document.createElement("div")
+    let input_par = document.createElement("input")
+    let input_point = document.createElement("input")
+    div.classList.add("form-inline")
+    input_par.setAttribute("type", "text")
+    input_par.classList.add("form-control")
+    input_par.classList.add("mt-3")
+    input_par.classList.add("mr-3")
+    input_par.setAttribute("name", "team[]")
+    input_par.placeholder = "Team"
+    input_point.setAttribute("type", "number")
+    input_point.setAttribute("name", "handicap[]")
+    input_point.classList.add("form-control")
+    input_point.classList.add("mt-3")
+    input_point.classList.add("mr-3")
+    input_point.placeholder = "Handicap"
+    div.appendChild(input_par)
+    input_par.insertAdjacentElement("afterend", input_point)
+    let last_div = form_team.lastElementChild
+    last_div.insertAdjacentElement("afterend", div)
+}
+
 function venueDeleteConfirmation(vname, vid) {
     let vname_store = prompt(`Type '${vname}' to delete`)
 
