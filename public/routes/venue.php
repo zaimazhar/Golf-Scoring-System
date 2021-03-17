@@ -150,7 +150,7 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
                                     <?php foreach($getTeams as $team) { ?>
                                         <tr>
                                             <td><?= $team['team_name'] ?></td>
-                                            <td><a class="btn btn-primary" href="<?= "$pickTeam?tid=" . $team['id'] ?>">View</a></td>
+                                            <td><a class="btn btn-primary" href="<?= "$pickTeam?cid=$cid&vid=$vid&tid=" . $team['id'] ?>">View</a></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>

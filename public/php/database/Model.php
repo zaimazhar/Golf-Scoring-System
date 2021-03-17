@@ -192,7 +192,7 @@ class Model extends pgConnection {
     /**
      * Insert RAW SQL
      */
-    protected function rawSQL(string $query, array $data) {
+    public function rawSQL(string $query, array $data) {
         return $this->executeQuery($query, $data);
     }
 }
