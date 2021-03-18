@@ -75,7 +75,7 @@ foreach($getCompetition as $competition) {
                         </div><!-- end col-->
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-xl-6">
                             <div class="card-box">
                                 <h2>Create Admin</h2><br>
                                 <form action="<?= $registeradmin ?>" method="post">
@@ -95,7 +95,7 @@ foreach($getCompetition as $competition) {
                                 </form>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-xl-6">
                             <div class="card-box">
                                 <h2>Create Competition</h2><br>
                                 <form action="<?= $createcompetition ?>" method="post">

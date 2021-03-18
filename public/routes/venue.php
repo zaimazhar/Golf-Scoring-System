@@ -89,7 +89,7 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-4 col-form-label" for="venue_holes">Venue Holes</label>
-                                    <input class="col-8 form-control" type="number" name="venue_holes" value="<?= $data['venue_holes'] ?>">
+                                    <input disabled class="col-8 form-control" type="number" name="venue_holes" value="<?= $data['venue_holes'] ?>">
                                 </div>
                                 <button class="btn btn-block btn-success" type="submit">Update</button>
                             </form>

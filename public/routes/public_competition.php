@@ -2,10 +2,12 @@
 
 include_once("../ServiceProvider.php");
 
+use php\logic\Auth;
 use php\logic\Competition;
 use php\misc\Helper;
 
 $competition = new Competition;
+$auth = new Auth;
 
 $cid = $_GET['cid'];
 
@@ -18,18 +20,34 @@ $pick_venue = Helper::route("public_competition_venue");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $comp_data['competition_name'] ?></title>
     <?php include_once("../routes/components/head.php") ?>
 </head>
-<body>
-    <h1><?= $comp_data['competition_name'] ?></h1>
-    <br>
-    <h2>Pick Venue</h2>
-    <?php foreach($venue_data as $venue) { ?>
-        <a href="<?= $pick_venue ?>?cid=<?= $cid ?>&vid=<?= $venue['id'] ?>"><?=  $venue['venue_name'] ?></a>
-    <?php } ?>
+<body class="is-preload">
+    <div id="wrapper">
+        <div id="main">
+            <div class="inner">
+                <?php include_once("./components/public_header.php") ?>
+                <section>
+                        <div class="row">
+                            <div class="col-12">
+                                <h1><?= $comp_data['competition_name'] ?></h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="box">
+                                    <?php foreach($venue_data as $venue) { ?>
+                                        <a class="button primary" href="<?= $pick_venue ?>?cid=<?= $cid ?>&vid=<?= $venue['id'] ?>"><?=  $venue['venue_name'] ?></a>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+            </div>
+        </div>
+        <?php include_once("./components/public_sidebar.php") ?>
+    </div>
+    <?php include_once("./components/footer.php") ?>
 </body>
 </html>

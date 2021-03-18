@@ -98,11 +98,8 @@ $sfLink = Helper::route("posts.stableford_insert");
                                                 <input type='text' name='venue[]' class="form-control" id="venue_name">
                                             </div>
                                             <div class="form-group">
-                                                <label for="venue_type">Venue Type</label>
-                                                <select class="form-control" name="venue_type[]" id="venue_type">
-                                                    <option value="solo">Solo</option>
-                                                    <option value="team">Team</option>
-                                                </select>
+                                                <label for="venue_hole">Venue Hole (<span class="font-italic">Permanent!</span>)</label>
+                                                <input class="form-control" type="number" name="venue_hole[]" id="venue_hole">
                                             </div>
                                         </td>
                                     </tr>

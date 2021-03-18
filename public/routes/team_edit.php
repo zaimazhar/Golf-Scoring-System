@@ -68,6 +68,7 @@ $venue_holes = range(1, $venue["venue_holes"]);
                             <h3 class="page-title mb-3">Add Player</h3>
                             <form action="<?= $player_add ?>" method="post">
                                 <input type="hidden" name="team_id" value="<?= $tid ?>">
+                                <input type="hidden" name="competition_id" value="<?= $cid ?>">
                                 <input type="hidden" name="venue_id" value="<?= $vid ?>">
                                 <div class="form-group row">
                                     <label class="col-2 col-form-label" for="addplayer">Venue</label>

@@ -26,24 +26,32 @@ $venue_data = $auth->select("venue", ["id", "venue_name"], ["competition_id" => 
     <?php include_once("./components/admin_head.php") ?>
 </head>
 <body>
-    <div id="id">
-        <?php include_once("./components/navbar_admin.php") ?><br>
+    <div id="wrapper">
+        <?php include_once("./components/navbar_admin.php") ?>
         <div class="content-page">
             <div class="content">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card-box">
-                            <?php if($venue_data) { ?>
-                            <form action="<?= $compute ?>" method="post">
-                            <?php foreach($venue_data as $venue) { ?>
-                                <label for="<?= $venue['id'] ?>"><?= $venue['venue_name'] ?></label><input type="checkbox" name="" value="<?= $venue['id'] ?>" id="<?= $venue['id'] ?>">
-                                <br>
-                            <?php } ?>
-                                <button type="submit">Compute</button>
-                            </form>
-                            <?php } else { ?>
-                                <h4>This competition has no venue.</h4>
-                            <?php } ?>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="page-title-box">
+                                <h4 class="page-title">Pick Competition to Compute</h4>
+                            </div>
+                        </div>
+                        <div class="col-xl-4">
+                            <div class="card-box">
+                                <?php if($venue_data) { ?>
+                                <form action="<?= $compute ?>" method="post">
+                                <?php foreach($venue_data as $venue) { ?>
+                                    <input type="checkbox" name="" value="<?= $venue['id'] ?>" id="<?= $venue['id'] ?>">
+                                    <label for="<?= $venue['id'] ?>"><?= $venue['venue_name'] ?></label>
+                                    <br>
+                                <?php } ?>
+                                    <button class="btn btn-success" type="submit">Compute</button>
+                                </form>
+                                <?php } else { ?>
+                                    <h4>This competition has no venue.</h4>
+                                <?php } ?>
+                            </div>
                         </div>
                     </div>
                 </div>

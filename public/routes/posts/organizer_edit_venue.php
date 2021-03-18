@@ -15,7 +15,7 @@ $cid = $_GET['cid'];
 $vid = $_GET['vid'];
 $venue_name = $_POST['venue_name'];
 
-$update = $auth->update("venue", ["venue_type" => Helper::SanitizeString($_POST['venue_type']), "venue_format" => Helper::SanitizeString($_POST['venue_format']), "venue_holes" => Helper::SanitizeNumber($_POST['venue_holes']), "venue_name" => Helper::SanitizeString($venue_name)], ["id" => $vid]);
+$update = $auth->update("venue", ["venue_type" => Helper::SanitizeString($_POST['venue_type']), "venue_format" => Helper::SanitizeString($_POST['venue_format']), "venue_name" => Helper::SanitizeString($venue_name)], ["id" => $vid]);
 
 if($update)
     Sessions::setSession("venue_update", "Successfully updated $venue_name");

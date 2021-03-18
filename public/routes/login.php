@@ -7,6 +7,13 @@ use php\misc\Helper;
 
 $auth = new Auth;
 
+if($auth->user()) {
+    if($auth->permission() === "superadmin")
+        Helper::redirect("organizer_dashboard");
+    else
+        Helper::redirect("administrator_dashboard");
+}
+
 $post = Helper::route("posts.user_login");
 
 ?>

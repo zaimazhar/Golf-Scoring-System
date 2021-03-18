@@ -17,24 +17,21 @@ if(Helper::checkRequest("GET")) {
 }
 
 for($i = 0; $i < count($_POST['venue']); $i++) {
-    if(!empty($_POST['venue'][$i]) && !empty($_POST['venue_type'][$i])) {
-        array_push($venue, [Helper::SanitizeNumber($_POST['cid']), Helper::SanitizeString($_POST['venue'][$i]), Helper::SanitizeString($_POST['venue_type'][$i])]);
+    if(!empty($_POST['venue'][$i]) && !empty($_POST['venue_hole'][$i])) {
+        array_push($venue, [Helper::SanitizeNumber($_POST['cid']), Helper::SanitizeString($_POST['venue'][$i]), Helper::SanitizeNumber($_POST['venue_hole'][$i])]);
     }
 }
 
-$query = $auth->createMultiple("venue", ["competition_id", "venue_name", "venue_type"], $venue);
+$query = $auth->createMultiple("venue", ["competition_id", "venue_name", "venue_holes"], $venue);
 
 if($query->count() > 0) {
     $venue = implode(" ", $_POST['venue']);
     Sessions::setSession("created_venue", "Successfully created venue for <b>$venue</b>");
-    if($auth->permission() === "superadmin") 
-        Helper::redirect("organizer_dashboard");
-    else
-        Helper::redirect("administrator_dashboard");
 } else {
     Sessions::setSession("error_venue", "Unable to insert venue");
-    if($auth->permission() === "superadmin") 
-        Helper::redirect("organizer_dashboard");
-    else
-        Helper::redirect("administrator_dashboard");
 }
+
+if($auth->permission() === "superadmin") 
+    Helper::redirect("organizer_dashboard");
+else
+    Helper::redirect("administrator_dashboard");
