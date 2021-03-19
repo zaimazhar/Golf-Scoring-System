@@ -114,6 +114,25 @@ function deletePar(cname, id) {
     }
 }
 
+function computeScore(cname, id) {
+    let tagTo = document.querySelector("#score")
+    let computeScore = new XMLHttpRequest()
+
+    computeScore.open("POST", `${url}/posts/compute_venue`)
+    computeScore.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+    computeScore.onreadystatechange = function() {
+        if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            while(tagTo.children) {
+                tagTo.removeChild()
+            }
+
+            let dataRespond = computeScore.response
+            tagTo.appendChild(dataRespond)
+        }
+    }
+    computeScore.send(`compute`)
+}
+
 function participantDeleteConfirmation(pname, pid) {
     let pname_store = prompt(`Type '${pname}' to delete`)
 

@@ -21,9 +21,9 @@ Having an official and crucial tournaments require a massive workloads to handle
 ## TO-DOs
 - Frontend
   - Login Page (100%)
-  - Organizer Dashboard (80%)
+  - Organizer Dashboard (100%)
   - Admin Dashboard (100%)
-  - Public View (50%)
+  - Public View (100%)
 
 - Backend
   - Configure server environment
@@ -44,7 +44,7 @@ Having an official and crucial tournaments require a massive workloads to handle
     - Authorization (100%)
     - ~~CSRF (10%)~~ (__Abandoned__)
     - ~~APIs~~ (__Dropped__)
-    - Model Class (85%)
+    - Model Class (100%)
     - ~~Query Builder~~
     - ~~Seeder~~
     - Score Computation (Include 'Stableford' into 'score' table)
