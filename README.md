@@ -1,4 +1,4 @@
-# Smart Golf Scoring Website System ⛳
+# Smart Golf Scoring Website System ⛳ (Completed)
 
 A platform to enhance quality and productivity of scoring in golf tournaments
 
