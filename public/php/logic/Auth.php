@@ -134,7 +134,8 @@ class Auth extends Model {
             else
                 Helper::redirect("administrator_dashboard");
         } else {
-            echo "Nope";
+            Sessions::setSession("auth", "Wrong Username or Password");
+            Helper::redirect("golf");
         }
     }
 
