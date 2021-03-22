@@ -29,6 +29,7 @@ $comp_id = Helper::route("public_competition");
                         <?php Sessions::old("expired"); ?>
                         <?php Sessions::old("get"); ?>
                         <?php Sessions::old("error"); ?>
+                        <?php Sessions::old("auth"); ?>
                         <br>
                         <div class="row">
                             <div class="col-12">
