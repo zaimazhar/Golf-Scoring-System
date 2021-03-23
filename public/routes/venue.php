@@ -45,8 +45,15 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
                         </div>
                     </div>
                 </div>
-                <h3><?php Sessions::old("venue_update"); ?></h3><br>
-                <h3><?php Sessions::old("team_insert"); ?></h3><br>
+                <div class="alert alert-warning alert-dismissible fade show h6" role="alert">
+                    <?php Sessions::old("venue_update"); ?>
+                    <?php Sessions::old("team_insert"); ?>
+                    <?php Sessions::old("handicap"); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
                 <div class="row">
                     <?php if( $data )  { ?>
                     <div class="col-4 order-12">
@@ -178,6 +185,7 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
                                             </td>
                                             <td>
                                                 <a class="btn btn-primary" href="<?= Helper::route("participant?cid=$cid&vid=$vid&pid=" . $participant['id'] ) ?>">View</a>
+                                                <a class="btn btn-warning" href="<?= Helper::route("participant_handicap?cid=$cid&vid=$vid&pid=" . $participant['id'] ) ?>">Edit Handicap</a>
                                                 <button class="btn btn-danger" onclick="participantDeleteConfirmation('<?= $participant['name'] ?>',<?= $participant['id'] ?>)">Delete</button>
                                             </td>
                                         </tr>
