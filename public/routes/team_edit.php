@@ -43,6 +43,9 @@ $venue_holes = range(1, $venue["venue_holes"]);
                             <h4 class="page-title">Team: <?= $getTeam['team_name'] ?></h4>
                         </div>
                     </div>
+                    <div class="col-xl-12">
+                        <a href="<?= Helper::route('team_view_score') . "?cid=$cid&vid=$vid&tid=$tid" ?>" class="btn btn-primary">View Score</a>
+                    </div>
                 </div>
                 <h4><?php Sessions::old("insert_team") ?></h4><br>
                 <div class="row">
