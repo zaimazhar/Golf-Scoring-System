@@ -14,13 +14,8 @@ $cid = $_GET['cid'];
 $vid = $_GET['vid'];
 $tid = $_GET['tid'];
 
-$team = $auth->rawSQL("SELECT t.team_name, s.hole, s.par, s.sf_point FROM team t INNER JOIN score s ON t.id=s.team_id WHERE s.team_id = ?", [$tid])->getAll();
-// $team = $auth->select("score", ["hole", "par", "sf_point"], ["team_id" => $tid])->getAll();
-
-foreach($team as $data) {
-    echo $data['team_name'] . " - " . $data['hole'] . "<br>";
-}
-exit;
+$team_data = $auth->find("team", $tid)->get();
+$team = $auth->select("score", ["hole", "par", "sf_point"], ["team_id" => $vid])->getAll();
 
 ?>
 
@@ -30,23 +25,27 @@ exit;
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include_once("./components/admin_head.php") ?>
+    <title>Team Score - <?= $team_data['team_name'] ?></title>
 </head>
 <body>
     <div id="wrapper">
+        <?php include_once("./components/navbar_admin.php") ?>
         <div class="content-page">
             <div class="content">
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="page-title-box">
-                            <h4 class="page-title">Team: <?= $getTeam['team_name'] ?></h4>
+                            <h4 class="page-title">Team: <?= $team_data['team_name'] ?></h4>
                         </div>
                     </div>
                     <div class="col-xl-12">
-                        <a href="<?= Helper::route('team_view_score') . "?cid=$cid&vid=$vid&tid=$tid" ?>" class="btn btn-primary">View Score</a>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <?php include_once("./components/admin_footer.php") ?>
 </body>
 </html>
