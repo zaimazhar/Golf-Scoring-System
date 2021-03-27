@@ -15,7 +15,7 @@ $vid = $_GET['vid'];
 $tid = $_GET['tid'];
 
 $team_data = $auth->find("team", $tid)->get();
-$team = $auth->select("score", ["hole", "par", "sf_point"], ["team_id" => $vid])->getAll();
+$datas = $auth->select("score", ["hole", "par", "sf_point"], ["team_id" => $tid])->getAll();
 
 ?>
 
@@ -40,7 +40,25 @@ $team = $auth->select("score", ["hole", "par", "sf_point"], ["team_id" => $vid])
                         </div>
                     </div>
                     <div class="col-xl-12">
-                        
+                        <div class="card-box">
+                            <h3 class="page-title mb-3">Score</h3>
+                            <table class="table text-center">
+                                <thead>
+                                    <th scope="col">Hole</th>
+                                    <th scope="col">Par</th>
+                                    <th scope="col">Stableford Point</th>
+                                </thead>
+                                <tbody>
+                                <?php foreach($datas as $data) { ?>
+                                    <tr>
+                                        <td><?= $data['hole'] ?></td>
+                                        <td><?= $data['par'] ?></td>
+                                        <td><?= $data['sf_point'] ?></td>
+                                    </tr>
+                                <?php } ?>                            
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
