@@ -46,9 +46,11 @@
 				<ul class="metismenu mm-show" id="side-menu">
 					<li class="menu-title">Navigation</li>
 					<li>
-						<a href="javascript:history.go(-1)">
+						<a href="
+						<?php if(isset($_GET['cid'])) { echo "competition?cid=$cid"; } else { echo "javascript:history.go(-1)"; } 
+						?>">
 							<i class="mdi mdi-keyboard-backspace"></i>
-							<span>Go Back</span>
+							<span>Back to Venue</span>
 						</a>	
 					</li>
 					<li>

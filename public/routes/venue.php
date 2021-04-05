@@ -45,14 +45,9 @@ $participants = $auth->select("participant", ["id", "name"], ["venue_id" => $vid
                         </div>
                     </div>
                 </div>
-                <div class="alert alert-warning alert-dismissible fade show h6" role="alert">
-                    <?php Sessions::old("venue_update"); ?>
-                    <?php Sessions::old("team_insert"); ?>
-                    <?php Sessions::old("handicap"); ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                <?php Sessions::old("venue_update"); ?>
+                <?php Sessions::old("team_insert"); ?>
+                <?php Sessions::old("handicap"); ?>
                 
                 <div class="row">
                     <?php if( $data )  { ?>
