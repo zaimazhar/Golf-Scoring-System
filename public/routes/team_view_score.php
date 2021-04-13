@@ -15,7 +15,7 @@ $vid = $_GET['vid'];
 $tid = $_GET['tid'];
 
 $team_data = $auth->find("team", $tid)->get();
-$datas = $auth->select("score", ["hole", "par", "sf_point"], ["team_id" => $tid])->getAll();
+$datas = $auth->select("score", ["hole", "par", "sf_point"], ["team_id" => $tid], "hole")->getAll();
 
 ?>
 
