@@ -21,7 +21,7 @@ $editScore = Helper::route("participant_edit");
 
 $venue = $auth->select("venue", ["venue_holes"], ["id" => $vid])->get();
 $participant = $auth->select("participant", ["name"], ["id" => $pid])->get();
-$score = $auth->rawSQL("SELECT hole,par FROM score WHERE venue_id=? AND player_id=? AND team_id IS NULL", [$vid, $pid]);
+$score = $auth->rawSQL("SELECT hole,par FROM score WHERE venue_id=? AND player_id=? AND team_id IS NULL order by hole asc", [$vid, $pid]);
 
 $venue_hole = range(1, $venue['venue_holes']);
 $holes = $score->getAll();
